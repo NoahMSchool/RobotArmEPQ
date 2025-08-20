@@ -1,3 +1,5 @@
+use <servo.scad>
+
 module box_container(size, thickness){
   translate([0,0,size[2]/2+thickness])
   difference(){
@@ -5,83 +7,7 @@ module box_container(size, thickness){
     translate([0,0,thickness*2])
     cube(size, center = true);
   }
-
-
 }
-
-//box_container([1,5,1.5], 0.5);
-$fn = 16;
-
-module servo_space()
-
-module servo_box(size = [20,10,15], shaft_offset = 5, thickness = 1, screw_count = 1, screw_offset = 1, screw_radius = 0.5, screw_depth = 5, volume_only = false){
-  tolerance = 0.5;
-  //tollerance is 1.5X on X to help fitting and not on z
-  servo_base = [size[0]+tolerance*3, size[1]+ tolerance *2, size[2]+thickness];
-
-  servo_base_box = [size[0]+(screw_radius+screw_offset+thickness)*2, size[1]+thickness*2, size[2]+thickness];
-  screw_separation = 2.5;
-  wire_exit_height = 6;
-  wire_exit_width_frac = 3/4;
-  #translate([0,0,8])
-  #cube([2,2,8], center = true);
-
-  translate([shaft_offset,0,0])
-  if (volume_only){
-    translate([0,0,-(thickness)/2])
-    cube(servo_base_box, center = true);
-  }
-  translate([shaft_offset,0,0])
-  difference(){  
-    // box
-    translate([0,0,-(thickness)/2])
-    cube(servo_base_box, center = true);
-
-    //base
-    translate([0,0,(thickness+tolerance)/2])
-    cube(servo_base, center = true);
-
-    //wirehole
-    translate([size[0]/2+(screw_radius+screw_offset+thickness)/2,0,-(size[2]-tolerance)/2 + wire_exit_height/2])
-    cube([(thickness+screw_radius+screw_offset)*2, size[1]*wire_exit_width_frac, wire_exit_height], true);
-    
-    //screws
-    if (screw_count == 1){
-      translate([-(screw_offset+size[0]/2),0,servo_base[2]/2])
-      cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
-
-      translate([(screw_offset+size[0]/2),0,servo_base[2]/2])
-      cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
-    }
-    if (screw_count == 2){   
-      translate([(screw_offset+servo_base[0]/2),-screw_separation/2,servo_base[2]/2])
-      cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
-
-      translate([(screw_offset+servo_base[0]/2),screw_separation/2,servo_base[2]/2])
-      cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
-
-      translate([-(screw_offset+servo_base[0]/2),-screw_separation/2,servo_base[2]/2])
-      cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
-
-      translate([-(screw_offset+servo_base[0]/2),screw_separation/2,servo_base[2]/2])
-      cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
-    }
-  }  
-}
-
-module servo_top(outer_radius = 50, hole_radius = 10){
- $fn = 8;
- cylinder(outer_radius, center = true);
-}
-
-//ms18 SG90 servo
-module sg90(_volume_only = false){
-  servo_box([22.4+0.1, 11.75, 16.1],shaft_offset = 6, thickness = 1.75, screw_count = 1, screw_offset = 2.9, screw_radius = 1.6, screw_depth = 12);
-}
-//sg90()
-
-servo_box([22.4+0.1, 11.75, 16.1],shaft_offset = 6, thickness = 1.75, screw_count = 1, screw_offset = 2.9, screw_radius = 1.6, screw_depth = 12, volume_only = true);
-
 
 //servo_top();
 
@@ -90,23 +16,26 @@ module arm_segment(arm_length){
   y_depth = 10;
 
 
-  translate([-x_width/2, -y_depth/2, 0])
-  //servo_box([22.4+0.1, 11.75, 16.1], thickness = 1.75, screw_count = 1, screw_offset = 2.9, screw_radius = 1.6, screw_depth = 12);
-  cube([x_width,y_depth,arm_length], center = false);
+  //translate([-x_width/2, -y_depth/2, 0])
+  //cube([x_width,y_depth,arm_length], center = false);
 
 
   //StartModule
   cube(15, center = true);
+
   //EndModule
   translate([0,0,arm_length])
   rotate([0,90,0])
   union(){
     difference(){
-      cylinder(15,20,20, center = true);
-      sg90(_volume_only = true);
+      cube([50,25,20], center = true);
+      //cylinder(15,20,20, center = true);
+      servo_spacing(size = [22.4+0.1, 11.75, 16.1],shaft_offset = 6, shaft_height = 2, thickness = 1.75, screw_offset = 2.9, screw_radius = 1.6, wire_exit_height = 6, wire_exit_width_frac = 3/4, wire_exit_amount = 5);
+
     }
-    sg90(_volume_only = false);
+    servo_box(size = [22.4+0.1, 11.75, 16.1],shaft_offset = 6, thickness = 1.75, screw_count = 1, screw_offset = 2.9, screw_radius = 1.6, screw_depth = 12, wire_exit_height = 6, wire_exit_width_frac = 3/4);
 
 }
 }
-//arm_segment(arm_length = 65);
+
+arm_segment(arm_length = 65);
