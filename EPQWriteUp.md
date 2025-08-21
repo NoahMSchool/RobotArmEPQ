@@ -1,7 +1,7 @@
 # EPQ WriteUp
 <br>
 
-`Date: 14-08-2025`
+`Date: 14/08/2025`
 
 ### Torque Calculator
 I wrote a simple python program that helped me select the servo motors that I needed. I could give it the torque and the mass of a servo or component and it would tell me if each servo in the arm had enough torque. I could refine it replacing spe 
@@ -57,6 +57,33 @@ module brick_block(block_size, x_blocks, y_blocks){
 brick_block(2.5, 2,3);
 ```
 
-## Inline code
+<br>
 
-This web site is using `markedjs/marked`.
+
+`Date: 18/08/2025`
+
+### Shaft Offset CAD
+The servo shaft is the part that rotates
+I wanted to center the shaft of the servo in my model so the arm rotates from the expected place.
+I offset the model in the servo module so its origin was where the servo shaft is located
+
+
+
+`Date: 19/08/2025`
+### Filament Research
+I looked into what the best fillament would be the best to use.
+I am going to use PLA filament as it has good rigidity and is easy to print with.
+I dont think I need to worry much about the choice as most filament will work fine and I am just going to order some from amazon.
+
+
+`Date: 20/08/2025`
+
+### Servo Spacing CAD
+
+I put my servo code in a separate file for better organisation as I expand the project
+
+In my servo code I created a mathmatical function that will return the dimentions of the servo housing, this would be useful for figuring out the dimentions of other parts of the arm
+
+I also made a separate module that returns the space used by a servo.
+This will be useful for boolean operations where I can remove the space in the arm to allow the servo to go in without overlapping with the arm.
+This also expanded outwards for the area that is required by the wires and the servo shaft
