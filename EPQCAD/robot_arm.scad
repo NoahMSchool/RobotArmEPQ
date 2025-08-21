@@ -14,6 +14,7 @@ module box_container(size, thickness){
 module arm_segment(arm_length, module_distance){
   width = 21;
   depth = 21;
+  back_depth = 20;
 
 
 
@@ -34,7 +35,64 @@ module arm_segment(arm_length, module_distance){
     translate([module_distance/2,0,0])
     servo_box(size = [22.4+0.1, 11.75, 16.1],shaft_offset = 6, thickness = 1.75, screw_count = 1, screw_offset = 2.9, screw_radius = 1.6, screw_depth = 12, wire_exit_height = 6, wire_exit_width_frac = 3/4);
 
-}
+  }
 }
 
-arm_segment(arm_length = 130, module_distance = 65);
+module electromagnet(){
+  $fn = 32;
+  tolerance = 0.25;
+
+  magnet_height = 15;
+  base_frac = 0.6;
+  base_extrude = 2;
+  magnet_radius = 10;
+  case_radius = 20;
+  
+  inner_surface_radius = 4;
+  ball_radius = 6;
+  ball_tolerance = 0.6;
+
+  handle_height = 15;
+  bar_radius = 1.5;
+
+
+  union(){    
+    difference(){
+      union(){
+      translate([magnet_radius+tolerance,-(case_radius-magnet_radius-tolerance)/2,magnet_height*base_frac])
+      cube([case_radius-magnet_radius-tolerance, case_radius-magnet_radius-tolerance, handle_height+bar_radius*2+magnet_height*(1-base_frac)], center = false);
+      
+      translate([-magnet_radius-tolerance-(case_radius-magnet_radius-tolerance),-(case_radius-magnet_radius-tolerance)/2,magnet_height*base_frac])
+      cube([case_radius-magnet_radius-tolerance, case_radius-magnet_radius-tolerance, handle_height+bar_radius*2+magnet_height*(1-base_frac)], center = false);
+      }
+      
+      translate([0,0,handle_height+magnet_height])
+      rotate([0,90,0])
+      cylinder(h=case_radius*3, r=bar_radius, center=true);
+    }    
+    difference(){
+      translate([0,0,(magnet_height*base_frac-base_extrude)/2])
+      cylinder(h=magnet_height*base_frac+base_extrude, r1 = magnet_radius, r2=case_radius, center = true);
+
+      translate([0,0,magnet_height/2])
+      cylinder(h=magnet_height, r=magnet_radius+tolerance, center = true);
+
+      translate([0,0,-ball_radius])
+      union(){
+        sphere(r=ball_radius+ball_tolerance);
+        cylinder(h=(ball_radius+ball_tolerance)*2, r=inner_surface_radius, center=true);  
+      }
+  }  
+
+    
+    
+  }
+}
+
+electromagnet();
+
+//arm_segment(arm_length = 130, module_distance = 65);
+
+//cut off ends diagonally for wires and aesthetics
+//Make tube at back for cable management
+
