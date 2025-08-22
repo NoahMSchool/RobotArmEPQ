@@ -87,3 +87,41 @@ In my servo code I created a mathmatical function that will return the dimention
 I also made a separate module that returns the space used by a servo.
 This will be useful for boolean operations where I can remove the space in the arm to allow the servo to go in without overlapping with the arm.
 This also expanded outwards for the area that is required by the wires and the servo shaft
+
+### Arm Cad
+
+I placed my servo in the arm module. I used the servo spacing module to subtract volume from the arm so I could replace it with the servo
+
+`Date: 21/08/2025`
+
+### Electromagnet
+
+The electromagnet I ordered have arived.
+I experemented using it with the raspberry pi power output pins. I also made some simple circuits with buttons and switches. I experemented with different voltages and used external power supply. And how well the balls stuck and stayed in place and chained picking up other magnets. I managed to get it to pick up a maximum of 3 at once. I took note of what I would need to do to house it. One objective would be to stop the balls roling around the magnet as this would make where the ball is dropped unpredictable. I saw it came with a screw but I later decided not to use it as I wanted to work underneath near the magnet 
+
+Later in the day I spent an hour and a half designing a modular CAD model in OpenSCAD for a design to house the electromagnet.
+This involved mostly cylnders aswell as using a sphere to make it fit the ball it needed to pick up.
+
+
+### Spring Arm Godot
+
+I restructured and simplified my arm segment scene to use a built in springarm node which is masking no layers. This meant that each arm automatically inherited its childs position and meant I can greatly simplify the code while also improving it which would make it easier to continue. 
+
+`Date: 21/08/2025`
+
+### Base Replaning
+
+I realised that using a stepper motor at the base would mean my wires got tangled. 
+The most common approach to solving this is to use brushes to connect the wires to the base
+
+I am going to try to use a MG90D Tower Pro Servo motor at the base. As the servo cannot support this weight on the shaft I am going to 3D print a turntable which will support its base.
+As it is not full 360 rotation my solution is to have the arm bend over backwards to reach behind. The only problem is as my magnets position is not motorised I do not know how it will rotate over
+
+I started designing a turntable in OpenSCAD after I cleaned up some of my previous code
+
+### Measuring and fitting components
+
+I used the electronic digital calliper to help measure some of my components. I adjusted the parameters of my program to fit the specific components.
+I then printed and reprinted them until they were the correct size and matched well. I did this with the electromagnet and I got the magnetic surface working well and I tested it with the raspberry pi. I may need to rethink the connection mechanism to the rest of the arm and change that later. I also tried making an enclosure for the MG996R servo.
+
+I also added some servos with their specifications to a google sheet and asked chatGPT to put it in the format of my program so I can test and finalise the servo models I am going to use.
