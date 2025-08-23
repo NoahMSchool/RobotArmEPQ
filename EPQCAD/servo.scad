@@ -2,7 +2,7 @@ $fn = 16;
 
 function get_servo_box_size (size = [20,10,15], shaft_offset = 5, thickness = 1, screw_offset = 2, screw_radius = 0.75) = [[size[0]+(screw_radius+screw_offset+thickness)*2, size[1]+thickness*2, size[2]+thickness]];
 
-module servo_box(size = [20,10,15], shaft_offset = 5, thickness = 1, screw_count = 1, screw_offset = 2, screw_separation = 2.5, screw_radius = 0.75, screw_depth = 5, wire_exit_height = 6, wire_exit_width_frac = 3/4, tolerance = 0.5){
+module servo_box(size = [20,10,15], shaft_offset = 5, shaft_height = 5, thickness = 1, screw_count = 1, screw_offset = 2, screw_separation = 2.5, screw_radius = 0.75, screw_depth = 5, wire_exit_height = 6, wire_exit_width_frac = 3/4, tolerance = 0.5){
   //tollerance is 1.5X on X to help fitting and not on z
 
   servo_base = [size[0]+tolerance*3, size[1]+ tolerance *2, size[2]+thickness];
@@ -12,8 +12,7 @@ module servo_box(size = [20,10,15], shaft_offset = 5, thickness = 1, screw_count
   //#cube([2,2,8], center = true);
 
   
-  translate([shaft_offset,0,0])
-  difference(){  
+    translate([shaft_offset,0,-(size[2]+thickness+shaft_height)/2])  difference(){  
     // box
     translate([0,0,-(thickness)/2])
     cube(servo_base_box, center = true);
@@ -52,7 +51,7 @@ module servo_box(size = [20,10,15], shaft_offset = 5, thickness = 1, screw_count
 
 module servo_spacing(size = [20,10,15], shaft_offset = 5, shaft_height = 2,thickness = 1, screw_offset = 2, screw_radius = 0.75, wire_exit_height = 6, wire_exit_width_frac = 3/4, wire_exit_amount = 5){
   servo_base_box = [size[0]+(screw_radius+screw_offset+thickness)*2, size[1]+thickness*2, size[2]+thickness+shaft_height];
-  translate([shaft_offset,0,0])
+  translate([shaft_offset,0,-(size[2]+thickness+shaft_height)/2])
   union(){
 
     translate([0,0,-(thickness)/2+shaft_height/2])

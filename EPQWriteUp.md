@@ -107,7 +107,7 @@ This involved mostly cylnders aswell as using a sphere to make it fit the ball i
 
 I restructured and simplified my arm segment scene to use a built in springarm node which is masking no layers. This meant that each arm automatically inherited its childs position and meant I can greatly simplify the code while also improving it which would make it easier to continue. 
 
-`Date: 21/08/2025`
+`Date: 22/08/2025`
 
 ### Base Replaning
 
@@ -125,3 +125,9 @@ I used the electronic digital calliper to help measure some of my components. I 
 I then printed and reprinted them until they were the correct size and matched well. I did this with the electromagnet and I got the magnetic surface working well and I tested it with the raspberry pi. I may need to rethink the connection mechanism to the rest of the arm and change that later. I also tried making an enclosure for the MG996R servo.
 
 I also added some servos with their specifications to a google sheet and asked chatGPT to put it in the format of my program so I can test and finalise the servo models I am going to use.
+
+`Date: 23/08/2025`
+
+### Servo height offset
+
+I made it so the shaft of the servo is the origin of the module. This will help keep things alligned

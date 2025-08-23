@@ -26,6 +26,7 @@ module arm_segment(arm_length, module_distance){
   //rotate([0,90,0])
   union(){
     difference(){
+      translate([0,0,-depth/2])
       cube([arm_length,width,depth], center = true);
       
       translate([module_distance/2,0,0])
@@ -33,28 +34,14 @@ module arm_segment(arm_length, module_distance){
 
     }
     translate([module_distance/2,0,0])
-    servo_box(size = [22.4+0.1, 11.75, 16.1],shaft_offset = 6, thickness = 1.75, screw_count = 1, screw_offset = 2.9, screw_radius = 1.6, screw_depth = 12, wire_exit_height = 6, wire_exit_width_frac = 3/4);
+    servo_box(size = [22.4+0.1, 11.75, 16.1],shaft_offset = 6, shaft_height = 3, thickness = 1.75, screw_count = 1, screw_offset = 2.9, screw_radius = 1.6, screw_depth = 12, wire_exit_height = 6, wire_exit_width_frac = 3/4);
 
   }
 }
 
-module electromagnet(){
-  $fn = 32;
-  tolerance = 0.25;
-
-  magnet_height = 15;
-  base_frac = 0.6;
-  base_extrude = 2;
-  magnet_radius = 10;
-  case_radius = 20;
-  
-  inner_surface_radius = 4;
-  ball_radius = 6;
-  ball_tolerance = 0.6;
-
-  handle_height = 15;
-  bar_radius = 1.5;
-
+module electromagnet(tolerance = 0.25, magnet_height = 15, base_frac = 0.6, base_extrude = 4, magnet_radius = 10, case_radius = 15, magnet_surface_radius = 4, ball_radius = 6, ball_tolerance = 1.2, handle_height = 15, bar_radius = 1){
+  $fn = 64;
+  //magnet radius refers to body maybe change
 
   union(){    
     difference(){
@@ -80,19 +67,39 @@ module electromagnet(){
       translate([0,0,-ball_radius])
       union(){
         sphere(r=ball_radius+ball_tolerance);
-        cylinder(h=(ball_radius+ball_tolerance)*2, r=inner_surface_radius, center=true);  
+        cylinder(h=(ball_radius+ball_tolerance)*2, r=magnet_surface_radius, center=true);  
       }
-  }  
-
-    
-    
+    }  
   }
 }
 
-electromagnet();
+//electromagnet(tolerance = 0.25, magnet_height = 15, magnet_radius = 10, case_radius = 15, base_frac = 0.6, base_extrude = 4, magnet_surface_radius = 4, ball_radius = 6, ball_tolerance = 0.8, handle_height = 10, bar_radius = 1);
 
-//arm_segment(arm_length = 130, module_distance = 65);
+//servo_box(size = [41, 19.2, 27.5],shaft_offset = 6, thickness = 3 , screw_count = 2, screw_offset = 3, screw_separation = 10, screw_radius = 2, screw_depth = 15, wire_exit_height = 14, wire_exit_width_frac = 3/4, tolerance = 0.75);
+//servo_box(size = [41, 19.2, 27.5], shaft_offset = 6, shaft_height = 5, thickness = 3, screw_offset = 3, screw_radius = 2);
+
+module turntable(){
+  $fn = 65;
+
+  radius = 25;
+  height = 10;
+
+  cylinder(h=height, r=radius, center=true);
+
+}
+
+//turntable();
+
+
+arm_segment(arm_length = 130, module_distance = 65);
 
 //cut off ends diagonally for wires and aesthetics
 //Make tube at back for cable management
 
+
+
+//Make Servo shaft origin of servo module
+//Figure out how to attatch end of electromagnet
+
+
+//Use new format for parameter pasing
