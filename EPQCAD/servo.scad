@@ -34,16 +34,16 @@ module servo_box(size = [20,10,15], shaft_offset = 5, shaft_height = 5, thicknes
       cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
     }
     if (screw_count == 2){   
-      translate([(screw_offset+servo_base[0]/2),-screw_separation/2,servo_base[2]/2])
+      translate([(screw_offset+size[0]/2),-screw_separation/2,servo_base[2]/2])
       cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
 
-      translate([(screw_offset+servo_base[0]/2),screw_separation/2,servo_base[2]/2])
+      translate([(screw_offset+size[0]/2),screw_separation/2,servo_base[2]/2])
       cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
 
-      translate([-(screw_offset+servo_base[0]/2),-screw_separation/2,servo_base[2]/2])
+      translate([-(screw_offset+size[0]/2),-screw_separation/2,servo_base[2]/2])
       cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
 
-      translate([-(screw_offset+servo_base[0]/2),screw_separation/2,servo_base[2]/2])
+      translate([-(screw_offset+size[0]/2),screw_separation/2,servo_base[2]/2])
       cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
     }
   }  
