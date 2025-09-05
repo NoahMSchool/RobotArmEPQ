@@ -131,3 +131,5 @@ I also added some servos with their specifications to a google sheet and asked c
 ### Servo height offset
 
 I made it so the shaft of the servo is the origin of the module. This will help keep things alligned
+
+I later tried to redo the upper half of the electromagnet to get the connection working. I want to put the wirehole in the side on one of the arms as this will also hold the magnet in place
