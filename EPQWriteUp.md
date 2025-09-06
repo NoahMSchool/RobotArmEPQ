@@ -56,7 +56,6 @@ module brick_block(block_size, x_blocks, y_blocks){
 
 brick_block(2.5, 2,3);
 ```
-
 <br>
 
 
@@ -133,3 +132,73 @@ I also added some servos with their specifications to a google sheet and asked c
 I made it so the shaft of the servo is the origin of the module. This will help keep things alligned
 
 I later tried to redo the upper half of the electromagnet to get the connection working. I want to put the wirehole in the side on one of the arms as this will also hold the magnet in place
+
+`Date: 03/09/2025`
+
+## Adjusting Plan
+
+I decided that I would first focus on the arm segment and then the rotating base would be a bonus if I have time.
+I then started making a base in OpenSCAD.
+When putting a servo ontop of the cylnder I realised there was no way to know the modules size
+I would need to rethink how I was storing things in the program like servo sizes. And maybe I would need functions that return sizes alongside my modulse. Unfortunatelly OpenSCAD does not support classes. 
+
+`Date: 05/09/2025`
+
+## Shaft Container
+I wasnt sure if printing my own shaft container with teeth to grip would work or if I was going to need to fit it using a servo horn.
+
+
+## Restructuring Parameters
+
+I looked into the best way to store things in OpenSCAD
+The only datastructure that can store multiple things is a list so I had to use that
+I made anouther Text file for documenting what each part means.
+
+`Date: 06/09/2025`
+
+I decided making a datastructure for each part is not that useful As I am not reusing it. It just meant that I was accessing variables by index instead of name which would be less readable.I could make getter functions for each but that would be pointless so I scrapped the idea.
+But I was passing in data for servos a lot so I thought making a datastructure with that and other components would be more usefull.
+
+I made a new file called component data which stores data for each component. I started with servos. 
+Here is an example of the structure. I used AI giving it the structure to help format the data for different servos.
+
+`openscad`
+```
+MG996R_data = [
+    [40.3, 19.4, 27.5], // size
+    10,                 // shaft_offset
+    12,                 // shaft_height
+    1.5,                // thickness
+    2,                  // screw_count
+    4.2,                // screw_offset
+    10,                 // screw_separation
+    2,                  // screw_radius
+    15,                 // screw_depth
+    14,                 // wire_exit_height
+    3/4,                // wire_exit_width_frac
+    0.75                // tolerance
+];
+
+```
+
+
+## Helper Size/Offset Functions
+
+Later I made functions that found the space required and the offset and then the bounding box which used the two previous as this would be useful for adjusting the shape of the arm segment.
+
+`openscad`
+```
+function get_servo_size(servo_data) = [servo_data[0][0]+(servo_data[7]+servo_data[5]+servo_data[3])*2, servo_data[0][1]+servo_data[3]*2, servo_data[0][2]+servo_data[3]];
+//[size[0]+(screw_radius+screw_offset+thickness)*2, size[1]+thickness*2, size[2]+thickness]
+
+function get_servo_offset(servo_data) = [servo_data[1],0,-(servo_data[0][2]+servo_data[3]+servo_data[2])/2];
+//[shaft_offset,0,-(size[2]+thickness+shaft_height)/2]
+
+function get_servo_bounding_box(size, servo_offset) = [[size[0]/2+servo_offset[0],size[1]/2+servo_offset[1],size[2]/2+servo_offset[2]], [-size[0]/2+servo_offset[0],-size[1]/2+servo_offset[1],-size[2]/2+servo_offset[2]]];
+
+```
+
+Add Image here of bounding box
+
+
+

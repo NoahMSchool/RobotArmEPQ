@@ -1,5 +1,6 @@
 use <servo.scad>
-include<component_data.scad>
+include <component_data.scad>
+
 module box_container(size, thickness){
   translate([0,0,size[2]/2+thickness])
   difference(){
@@ -9,12 +10,10 @@ module box_container(size, thickness){
   }
 }
 
-module arm_segment(arm_length, module_distance){
+module arm_segment(arm_length = 100, end_servo = default_data){
   width = 21;
   depth = 21;
   back_depth = 20;
-
-
 
   //StartModule
   //cube(15, center = true);
@@ -27,12 +26,13 @@ module arm_segment(arm_length, module_distance){
       translate([0,0,-depth/2])
       cube([arm_length,width,depth], center = true);
       
-      translate([module_distance/2,0,0])
-      servo_spacing(size = [22.4+0.1, 11.75, 16.1],shaft_offset = 6, shaft_height = 3, thickness = 1.75, screw_offset = 2.9, screw_radius = 1.6, wire_exit_height = 6, wire_exit_width_frac = 3/4, wire_exit_amount = 5);
+      translate([arm_length/2,0,0])
+      servo_spacing(end_servo);
 
     }
-    translate([module_distance/2,0,0])
-    servo_box(size = [22.4+0.1, 11.75, 16.1],shaft_offset = 6, shaft_height = 3, thickness = 1.75, screw_count = 1, screw_offset = 2.9, screw_radius = 1.6, screw_depth = 12, wire_exit_height = 6, wire_exit_width_frac = 3/4);
+
+    translate([arm_length/2,0,0])
+    servo_box(end_servo);
 
   }
 }
@@ -103,10 +103,13 @@ module base(){
 
 }
 
+arm_segment(arm_length = 100);
+
+
 //base();
 
 
 //electromagnet(tolerance = 0.25, magnet_height = 15, magnet_radius = 10, case_radius = 15, wire_height = 10, base_frac = 0.6, base_extrude = 4, magnet_surface_radius = 4, ball_radius = 6, ball_tolerance = 0.8, handle_height = 8, bar_radius = 1);
-//arm_segment(arm_length = 130, module_distance = 65);//2.35
+
 //Figure out how to attatch end of electromagnet
 

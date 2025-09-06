@@ -1,11 +1,16 @@
 $fn = 16;
-
-function get_servo_bounding_boxr (size = [20,10,15], shaft_offset = 5, shaft_height = 5, thickness = 1, screw_count = 1, screw_offset = 2, screw_separation = 2.5, screw_radius = 0.75, screw_depth = 5, wire_exit_height = 6, wire_exit_width_frac = 3/4, tolerance = 0.5) = [[size[0]+(screw_radius+screw_offset+thickness)*2, size[1]+thickness*2, size[2]+thickness]];
-
+include <component_data.scad>
 
 function get_servo_size(servo_data) = [servo_data[0][0]+(servo_data[7]+servo_data[5]+servo_data[3])*2, servo_data[0][1]+servo_data[3]*2, servo_data[0][2]+servo_data[3]];
 //[size[0]+(screw_radius+screw_offset+thickness)*2, size[1]+thickness*2, size[2]+thickness]
-module servo_box(servo_data = default_data){
+
+function get_servo_offset(servo_data) = [servo_data[1],0,-(servo_data[0][2]+servo_data[3]+servo_data[2])/2];
+//[shaft_offset,0,-(size[2]+thickness+shaft_height)/2]
+
+function get_servo_bounding_box(size, servo_offset) = [[size[0]/2+servo_offset[0],size[1]/2+servo_offset[1],size[2]/2+servo_offset[2]], [-size[0]/2+servo_offset[0],-size[1]/2+servo_offset[1],-size[2]/2+servo_offset[2]]];
+
+
+module servo_box(servo_data){
   size = servo_data[0];
   shaft_offset = servo_data[1];
   shaft_height = servo_data[2];
@@ -20,54 +25,51 @@ module servo_box(servo_data = default_data){
   tolerance = servo_data[11];
   //tollerance is 1.5X on X to help fitting and not on z
 
-    servo_base = [size[0]+tolerance*3, size[1]+ tolerance *2, size[2]+thickness];
-    servo_base_box = get_servo_size(servo_data);
+  servo_base = [size[0]+tolerance*3, size[1]+ tolerance *2, size[2]+thickness];
+  servo_base_box = get_servo_size(servo_data);
 
-  //#translate([0,0,8])
-  //#cube([2,2,8], center = true);
-
-  
-  translate([shaft_offset,0,-(size[2]+thickness+shaft_height)/2])  
+  translate(get_servo_offset(servo_data))  
   difference(){  
     // box
     translate([0,0,-(thickness)/2])
-      cube(servo_base_box, center = true);
+    cube(servo_base_box, center = true);
 
-      //base
-      translate([0,0,(thickness+tolerance)/2])
-      cube(servo_base, center = true);
+    //base
+    translate([0,0,(thickness+tolerance)/2])
+    cube(servo_base, center = true);
 
-      //wirehole
-      translate([size[0]/2+(screw_radius+screw_offset+thickness)/2,0,-(size[2]-tolerance)/2 + wire_exit_height/2])
-      cube([(thickness+screw_radius+screw_offset)*2, size[1]*wire_exit_width_frac, wire_exit_height], true);
-      
-      //screws
-      $fn = 32;
-      if (screw_count == 1){
-        translate([-(screw_offset+size[0]/2),0,servo_base[2]/2])
-        cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
+    //wirehole
+    translate([size[0]/2+(screw_radius+screw_offset+thickness)/2,0,-(size[2]-tolerance)/2 + wire_exit_height/2])
+    cube([(thickness+screw_radius+screw_offset)*2, size[1]*wire_exit_width_frac, wire_exit_height], true);
+    
+    //screws
+    $fn = 32;
+    if (screw_count == 1){
+      translate([-(screw_offset+size[0]/2),0,servo_base[2]/2])
+      cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
 
-        translate([(screw_offset+size[0]/2),0,servo_base[2]/2])
-        cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
-      }
-      if (screw_count == 2){   
-        translate([(screw_offset+size[0]/2),-screw_separation/2,servo_base[2]/2])
-        cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
-
-        translate([(screw_offset+size[0]/2),screw_separation/2,servo_base[2]/2])
-        cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
-
-        translate([-(screw_offset+size[0]/2),-screw_separation/2,servo_base[2]/2])
-        cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
-
-        translate([-(screw_offset+size[0]/2),screw_separation/2,servo_base[2]/2])
-        cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
+      translate([(screw_offset+size[0]/2),0,servo_base[2]/2])
+      cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
     }
-  }  
+    if (screw_count == 2){   
+      translate([(screw_offset+size[0]/2),-screw_separation/2,servo_base[2]/2])
+      cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
+
+      translate([(screw_offset+size[0]/2),screw_separation/2,servo_base[2]/2])
+      cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
+
+      translate([-(screw_offset+size[0]/2),-screw_separation/2,servo_base[2]/2])
+      cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
+
+      translate([-(screw_offset+size[0]/2),screw_separation/2,servo_base[2]/2])
+      cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
+    } 
+    
+  }
 }
 
 
-module servo_spacing(servo_data = default_data){
+module servo_spacing(servo_data){
   size = servo_data[0];
   shaft_offset = servo_data[1];
   shaft_height = servo_data[2];
