@@ -1,5 +1,5 @@
 use <servo.scad>
-
+include<component_data.scad>
 module box_container(size, thickness){
   translate([0,0,size[2]/2+thickness])
   difference(){
@@ -8,8 +8,6 @@ module box_container(size, thickness){
     cube(size, center = true);
   }
 }
-
-//servo_top();
 
 module arm_segment(arm_length, module_distance){
   width = 21;
@@ -38,6 +36,8 @@ module arm_segment(arm_length, module_distance){
 
   }
 }
+//cut off ends diagonally for wires and aesthetics
+//Make tube at back for cable management
 
 module electromagnet(tolerance = 0.25, magnet_height = 15, wire_height = 10, wirehole_radius = 2, base_frac = 0.6, base_extrude = 4, magnet_radius = 10, case_radius = 15, magnet_surface_radius = 4, ball_radius = 6, ball_tolerance = 1.2, handle_height = 15, bar_radius = 1){
   $fn = 64;
@@ -90,35 +90,23 @@ module electromagnet(tolerance = 0.25, magnet_height = 15, wire_height = 10, wir
 
 
 
-module turntable(){
+module base(){
   $fn = 65;
 
-  radius = 25;
+  radius = 37.5;
   height = 10;
 
-  cylinder(h=height, r=radius, center=true);
+  cylinder(h=height, r=radius, center=false);
+  translate([0,0,height])
+  rotate([0,90,0])
+  servo_box();
 
 }
 
-turntable();
+//base();
+
+
 //electromagnet(tolerance = 0.25, magnet_height = 15, magnet_radius = 10, case_radius = 15, wire_height = 10, base_frac = 0.6, base_extrude = 4, magnet_surface_radius = 4, ball_radius = 6, ball_tolerance = 0.8, handle_height = 8, bar_radius = 1);
-
-
 //arm_segment(arm_length = 130, module_distance = 65);//2.35
-
-
-//cut off ends diagonally for wires and aesthetics
-//Make tube at back for cable management
-
-
-
-//Make Servo shaft origin of servo module
 //Figure out how to attatch end of electromagnet
-
-
-//Use new format for parameter pasing
-
-
-//MG996Rservo
-//servo_box(size = [40.3, 19.4, 27.5],shaft_offset = 10, shaft_height = 12, thickness = 1.5 , screw_count = 2, screw_offset = 4.2 , screw_separation = 10, screw_radius = 2, screw_depth = 15, wire_exit_height = 14, wire_exit_width_frac = 3/4, tolerance = 0.75);
 
