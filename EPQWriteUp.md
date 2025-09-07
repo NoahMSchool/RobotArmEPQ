@@ -212,4 +212,10 @@ I drew out my target in a sketch and then I moddled the arm in blender as refere
 Add image in sketch book
 Add image in blender
 
-I then tried making it in OpenSCAD. I changed the arm width,depth, and length to be dependant on the end effector servo's required size.
+I then started making it in OpenSCAD. I changed the arm width,depth, and length to be dependant on the end effector servo's required size. I usd the new bounding box and size helper functions for this. 
+
+### Functional Programming Link
+I had adapted the bounding box to just take servo data by using 2 other functions. This is slightly more readable but is still not very readable. I was getting a bit worried about using openscad because its lack of classes and propper functions were making me doubt my programs maintainablity. 
+I realised that the functions were pure function which return a value without having side effects or effecting state which is used in functional programming langualges like haskell. Not that OpenSCAD is a functinal langage but this was an introduction to the minset.
+
+I had been looking into some other similar programs like python libraries and OpenCascade, Cadquery and FreeCAD scripting.
