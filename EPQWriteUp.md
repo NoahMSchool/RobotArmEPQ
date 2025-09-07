@@ -202,3 +202,14 @@ Add Image here of bounding box
 
 
 
+`Date: 07/09/2025`
+
+## Making middle arm segment
+
+I wanted to start making the middle arm segment in OpenSCAD. I decided that I wanted to put the effector at the end of the previous arm link which would minimise torque requirements as you want to keep effectors as downstream as possible. And I would have the servo rotated so It would face downwards.
+I drew out my target in a sketch and then I moddled the arm in blender as reference. 
+
+Add image in sketch book
+Add image in blender
+
+I then tried making it in OpenSCAD. I changed the arm width,depth, and length to be dependant on the end effector servo's required size.
