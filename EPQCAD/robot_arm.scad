@@ -13,32 +13,29 @@ module box_container(size, thickness){
 module arm_segment(arm_length = 100, end_servo = default_data){
   servo_bounds = get_servo_bounding_box(end_servo);
   servo_size = get_servo_size(end_servo);
-
+  top_space = 0.25; // sligtly put top below xy plane
   front_space = 0;
-  back_space = servo_bounds[0][0];
+  back_space = abs(servo_bounds[0][0]);
 
 
-  thickness = 3;
+  thickness = 2;
   width = servo_size[1]+thickness;
   depth = servo_size[2]+thickness;
+  body_length = arm_length+front_space+back_space+thickness*2;
 
-  //StartModule
-  //cube(15, center = true);
-
-  //EndModule
-  //translate([arm_length,0,0])
-  //rotate([0,90,0])
   union(){
     difference(){
-      translate([0,0,-depth/2])
-      translate([(back_space-front_space)/2,0,0])
-      cube([front_space+back_space+servo_bounds[0][0]+arm_length+thickness*2,width,depth], center = true);
+      //main body
+      translate([0,0,-depth/2-top_space/2])
+      translate([(front_space-back_space)/2,0,0])
+      cube([body_length,width,depth-top_space], center = true);
       
+      //endservo spacing
       translate([-arm_length/2,0,0])
       servo_spacing(end_servo);
 
     }
-
+    //endservo
     translate(-[arm_length/2,0,0])
     servo_box(end_servo);
 

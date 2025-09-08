@@ -18,7 +18,7 @@ MG996R_data = [
 default_data = [
     [20,10,15], // SIZE
     5,          // SHAFT_OFFSET
-    5,          // SHAFT_HEIGHT
+    2,          // SHAFT_HEIGHT
     1,          // THICKNESS
     1,          // SCREW_COUNT
     2,          // SCREW_OFFSET
