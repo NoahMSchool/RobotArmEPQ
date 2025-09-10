@@ -219,3 +219,26 @@ I had adapted the bounding box to just take servo data by using 2 other function
 I realised that the functions were pure function which return a value without having side effects or effecting state which is used in functional programming langualges like haskell. Not that OpenSCAD is a functinal langage but this was an introduction to the minset.
 
 I had been looking into some other similar programs like python libraries and OpenCascade, Cadquery and FreeCAD scripting.
+
+`Date: 08/09/2025`
+
+## Getting height to allign to servo + Bug Fixing 
+
+I got the height of the arm to adapt to the height of the servo
+I also fixed some bugs causing unexpected translations.
+I am finding my code to not be very readable so I might need to figure out a solution. I am thinking that OpenSCAD is not optimal for larger projects.
+I then used AI by passing in the indexes labeled with the variables they correspond to and asked it to write a more readable version that I could put in a comment next to it. I checked it and it worked well.
+
+
+`Date: 10/09/2025`
+
+## Wire Tunnel
+
+I made a tunnel for wires in my arm model. I followed the design I did earlier with the drawing. I made two more helper function in the servo that gets size and offset info that I used to perfectly match the wire sizes. There is also a wire enterance point that moves dependant on the size of the servo and an offset variable.
+I exposed a few more parameters to the arm function and improved some code overall.
+One thing I am worried about is not being able to get the wires through the hole during assembly. 
+
+I am almost ready to print some arm samples. Before that I want to get the servo shaft hole at the base. As these parts are quite large I want to be able to test as many variables as possible at once. I might also start with shorter arms by changing the parameters.
+
+Insert Drawing
+

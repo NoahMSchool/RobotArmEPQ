@@ -12,7 +12,8 @@ MG996R_data = [
     15,                 // screw_depth
     14,                 // wire_exit_height
     3/4,                // wire_exit_width_frac
-    0.75                // tolerance
+    0.75,               // tolerance
+    5,                  //wire_exit_amount
 ];
 
 default_data = [

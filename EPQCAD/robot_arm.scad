@@ -10,15 +10,15 @@ module box_container(size, thickness){
   }
 }
 
-module arm_segment(arm_length = 100, end_servo = default_data){
+module arm_segment(arm_length = 100, thickness = 3, wire_in_offset = 25, end_servo = default_data){
+
   servo_bounds = get_servo_bounding_box(end_servo);
   servo_size = get_servo_size(end_servo);
   top_space = 0.25; // sligtly put top below xy plane
   front_space = 0;
   back_space = abs(servo_bounds[0][0]);
+  wire_cross = get_servo_wire_cross(end_servo);
 
-
-  thickness = 2;
   width = servo_size[1]+thickness;
   depth = servo_size[2]+thickness;
   body_length = arm_length+front_space+back_space+thickness*2;
@@ -32,7 +32,20 @@ module arm_segment(arm_length = 100, end_servo = default_data){
       
       //endservo spacing
       translate([-arm_length/2,0,0])
+      union(){
       servo_spacing(end_servo);
+
+      //wire in
+      wire_depth = (get_servo_wire_offset(end_servo)+get_servo_box_offset(end_servo))[0];
+      translate([wire_in_offset+servo_bounds[1][0],0,-wire_depth/2])
+      cube([wire_cross[1],wire_cross[2],wire_depth], center = true);
+      }
+
+      //wire tube
+      translate(get_servo_wire_offset(end_servo)+get_servo_box_offset(end_servo))
+      cube([arm_length, 0,0]+wire_cross,center = true);
+
+      
 
     }
     //endservo
@@ -108,7 +121,8 @@ module base(){
 
 }
 
-arm_segment(arm_length = 100, end_servo = default_data);
+arm_segment(arm_length = 100, thickness = 2, wire_in_offset = 10, end_servo = default_data);
+//servo_spacing(default_data);
 
 
 //base();

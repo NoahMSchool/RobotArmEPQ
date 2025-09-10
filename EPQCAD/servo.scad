@@ -20,6 +20,17 @@ servo_data[1], //shaft_offset
 -(servo_data[0][2]+servo_data[3]+servo_data[2])/2 // -(size[z]+thickness+shaft_height)/2
 ];
 
+function get_servo_box_offset(servo_data) = get_servo_offset(servo_data)-[0,0,servo_data[2]/2];
+
+function get_servo_wire_offset(servo_data) = [
+servo_data[0][0]/2+(servo_data[7]+servo_data[5]+servo_data[3]) / 2,
+0,
+-(servo_data[0][2]-servo_data[11])/2+servo_data[9]/2];
+//[size[0]/2+(screw_radius+screw_offset+thickness)/2,0,-(size[2]-tolerance)/2 + wire_exit_height/2]
+
+function get_servo_wire_cross(servo_data) = [0,servo_data[0][1]*servo_data[10],servo_data[9]];
+//[0, size[1]*wire_exit_width_frac, wire_exit_height]
+
 
 function get_servo_bounding_box_from_size_offset(sizeoffset) = [[-sizeoffset[0][0]/2+sizeoffset[1][0],-sizeoffset[0][1]/2+sizeoffset[1][1],-sizeoffset[0][2]/2+sizeoffset[1][2]],[sizeoffset[0][0]/2+sizeoffset[1][0],sizeoffset[0][1]/2+sizeoffset[1][1],sizeoffset[0][2]/2+sizeoffset[1][2]]];
 function get_servo_bounding_box(servo_data) = get_servo_bounding_box_from_size_offset([get_servo_size(servo_data), get_servo_offset(servo_data)]);
@@ -43,7 +54,7 @@ module servo_box(servo_data){
   servo_base_box = get_servo_size(servo_data)-[0,0,shaft_height];
   union(){
 
-    translate(get_servo_offset(servo_data)-[0,0,shaft_height/2])  
+    translate(get_servo_box_offset(servo_data))  
     difference(){  
       // box
       cube(servo_base_box, center = true);
@@ -53,8 +64,8 @@ module servo_box(servo_data){
       cube(servo_base, center = true);
 
       //wirehole
-      translate([size[0]/2+(screw_radius+screw_offset+thickness)/2,0,-(size[2]-tolerance)/2 + wire_exit_height/2])
-      cube([(thickness+screw_radius+screw_offset)*2, size[1]*wire_exit_width_frac, wire_exit_height], true);
+      translate(get_servo_wire_offset(servo_data))
+      cube([(thickness+screw_radius+screw_offset)*2,0,0] + get_servo_wire_cross(servo_data), true);
       
       //screws
       $fn = 32;
