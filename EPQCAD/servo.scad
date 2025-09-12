@@ -35,6 +35,9 @@ function get_servo_wire_cross(servo_data) = [0,servo_data[0][1]*servo_data[10],s
 function get_servo_bounding_box_from_size_offset(sizeoffset) = [[-sizeoffset[0][0]/2+sizeoffset[1][0],-sizeoffset[0][1]/2+sizeoffset[1][1],-sizeoffset[0][2]/2+sizeoffset[1][2]],[sizeoffset[0][0]/2+sizeoffset[1][0],sizeoffset[0][1]/2+sizeoffset[1][1],sizeoffset[0][2]/2+sizeoffset[1][2]]];
 function get_servo_bounding_box(servo_data) = get_servo_bounding_box_from_size_offset([get_servo_size(servo_data), get_servo_offset(servo_data)]);
 
+
+function get_servo_shaft_radius(servo_data) = servo_data[14];
+
 module servo_box(servo_data){
   size = servo_data[0];
   shaft_offset = servo_data[1];
@@ -121,10 +124,36 @@ module servo_spacing(servo_data){
   }
 }
 
-module servo_top(outer_radius = 50, hole_radius = 10){
- $fn = 8;
- cylinder(outer_radius, center = true);
-}
+module servo_shaft(servo_data){
+ $fn = 12;
+ teeth_depth = 0.4;
+ teeth_count =servo_data[13];
+ shaft_radius = servo_data[14]-teeth_depth;
+ shaft_depth = servo_data[15];
+ screw_radius = 1.75;
+ hole_radius = 3;
+ screw_hub_thickness = 0.8;
+rotate([180,0,0])
+ translate([0,0,shaft_depth/2])
+ union(){
+  //gear
+  cylinder(h=shaft_depth, r=shaft_radius, $fn = teeth_count, center = true);
+  //d
+  cylinder(h = 20, r = screw_radius);
+  translate([0,0,shaft_depth/2+screw_hub_thickness])
+  cylinder(h = 50, r = hole_radius);
+ 
+    for (i = [0:25]){
+      rotate([0,0,360*i/teeth_count-180/teeth_count])
+     translate([shaft_radius,0,0])
+     cube([teeth_depth*2,sqrt(2*shaft_radius*shaft_radius*(1-cos(360/teeth_count)))*0.5,shaft_depth], center = true);
+    }
+  }
+} 
+
+ 
+
+
 
 
 //servo_box();

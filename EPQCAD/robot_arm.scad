@@ -10,12 +10,12 @@ module box_container(size, thickness){
   }
 }
 
-module arm_segment(arm_length = 100, thickness = 3, wire_in_offset = 25, end_servo = default_data){
+module arm_segment(arm_length = 100, thickness = 3, wire_in_offset = 25, end_servo = default_data, start_servo){
 
   servo_bounds = get_servo_bounding_box(end_servo);
   servo_size = get_servo_size(end_servo);
   top_space = 0.25; // sligtly put top below xy plane
-  front_space = 0;
+  front_space = get_servo_shaft_radius(start_servo);
   back_space = abs(servo_bounds[0][0]);
   wire_cross = get_servo_wire_cross(end_servo);
 
@@ -30,6 +30,10 @@ module arm_segment(arm_length = 100, thickness = 3, wire_in_offset = 25, end_ser
       translate([(front_space-back_space)/2,0,0])
       cube([body_length,width,depth-top_space], center = true);
       
+      //shaft hole
+      translate([arm_length/2,0,0])
+      servo_shaft(start_servo);
+      
       //endservo spacing
       translate([-arm_length/2,0,0])
       union(){
@@ -38,15 +42,12 @@ module arm_segment(arm_length = 100, thickness = 3, wire_in_offset = 25, end_ser
       //wire in
       wire_depth = (get_servo_wire_offset(end_servo)+get_servo_box_offset(end_servo))[0];
       translate([wire_in_offset+servo_bounds[1][0],0,-wire_depth/2])
-      cube([wire_cross[1],wire_cross[2],wire_depth], center = true);
+      cube([wire_cross[2],wire_cross[1],wire_depth], center = true);
       }
 
       //wire tube
       translate(get_servo_wire_offset(end_servo)+get_servo_box_offset(end_servo))
       cube([arm_length, 0,0]+wire_cross,center = true);
-
-      
-
     }
     //endservo
     translate(-[arm_length/2,0,0])
@@ -107,7 +108,6 @@ module electromagnet(tolerance = 0.25, magnet_height = 15, wire_height = 10, wir
 }
 
 
-
 module base(){
   $fn = 65;
 
@@ -121,8 +121,13 @@ module base(){
 
 }
 
-arm_segment(arm_length = 100, thickness = 2, wire_in_offset = 10, end_servo = default_data);
-//servo_spacing(default_data);
+// difference(){
+//   translate([0,0,25.1])
+//   cube(50, center = true);
+//   servo_shaft(MG996R_data);
+// }
+
+arm_segment(arm_length = 100, thickness = 2, wire_in_offset = 10, end_servo = SG90_data, start_servo = MG996R_data);
 
 
 //base();

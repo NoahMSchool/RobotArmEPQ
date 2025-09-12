@@ -242,3 +242,24 @@ I am almost ready to print some arm samples. Before that I want to get the servo
 
 Insert Drawing
 
+
+## Shaft Hole
+
+I knew that the ways to connect the servo shaft to a horn is that there are screws and gears. I knew how the screws would work. I wasnt sure how I would do the gears as I didn't know whether the printers resolution would be sufficient. 
+I took apart the servo part of the original arm as I wanted to see if it printed the gears. Which it did and they worked pretty well.
+My backup was to model something around the non circular horns that came in the box as I knew they had good gears.
+
+First I added some parameters to my servo data to do with the shaft.
+
+I then made a module that would be used to subtract space from the arm for the gear to fit in. My plan was that it would go all the way through which would allow me to screw the screw in from the back.
+
+First I made a cylnder using the parameters passed with the resolution as the teeth count
+
+I used a loop and rotated small cubes around the cylinder. (same as teeth count)
+I used the cosine rule to make sure the cubes width matched the cylinders face width exactly.
+`cube([teeth_depth*2,sqrt(2*shaft_radius*shaft_radius*(1-cos(360/teeth_count))),shaft_depth], center = true);`
+
+I then added tubes for the screws to go through and added a few more features.
+Finlly I added it to a cube to test and then I added it to the servo.
+
+I think this might need quite a lot of tweeking to get right so I may print a block with quite a lot of different variations and see what fits because they are quite small.
