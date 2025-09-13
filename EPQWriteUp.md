@@ -8,7 +8,7 @@ I wrote a simple python program that helped me select the servo motors that I ne
 
 `python`
 ```
-#Servo Motor Calculator
+#Servo Torque Calculator v1
 
 g = 9.81
 
@@ -242,6 +242,7 @@ I am almost ready to print some arm samples. Before that I want to get the servo
 
 Insert Drawing
 
+`Date: 12/09/2025`
 
 ## Shaft Hole
 
@@ -263,3 +264,12 @@ I then added tubes for the screws to go through and added a few more features.
 Finlly I added it to a cube to test and then I added it to the servo.
 
 I think this might need quite a lot of tweeking to get right so I may print a block with quite a lot of different variations and see what fits because they are quite small.
+
+`Date: 13/09/2025`
+
+## Printing first arm segment.
+
+I printed the first arm segment. The main things I was worried about was the wire hole not supporting and loosing rigidity and i didnt know how my teeth would work.
+My slicer said it would weigh 18 grams so I thought I should soon work a bit more on my torque calculator to include the arm weight as that was as significant as the servo.
+
+Previously I was using trinkey which is a browser based python editor. I then used homebrew to install python on my machine. This way I could add my python script to source control and run it localy.

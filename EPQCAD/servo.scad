@@ -128,7 +128,7 @@ module servo_shaft(servo_data){
  $fn = 12;
  teeth_depth = 0.4;
  teeth_count =servo_data[13];
- shaft_radius = servo_data[14]-teeth_depth;
+ shaft_radius = servo_data[14]/2-teeth_depth;
  shaft_depth = servo_data[15];
  screw_radius = 1.75;
  hole_radius = 3;

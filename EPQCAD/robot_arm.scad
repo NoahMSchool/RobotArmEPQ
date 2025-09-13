@@ -1,6 +1,8 @@
 use <servo.scad>
 include <component_data.scad>
 
+version_num = "v0.1";
+
 module box_container(size, thickness){
   translate([0,0,size[2]/2+thickness])
   difference(){
@@ -52,8 +54,12 @@ module arm_segment(arm_length = 100, thickness = 3, wire_in_offset = 25, end_ser
     //endservo
     translate(-[arm_length/2,0,0])
     servo_box(end_servo);
-
   }
+  translate([0,-width/2,-depth/2])
+  rotate([90,0,0])
+  linear_extrude(height = 1)
+  text(str("Armsegment ", version_num), size = depth/3, halign = "center", valign = "center");
+
 }
 //cut off ends diagonally for wires and aesthetics
 //Make tube at back for cable management
@@ -127,8 +133,7 @@ module base(){
 //   servo_shaft(MG996R_data);
 // }
 
-arm_segment(arm_length = 100, thickness = 2, wire_in_offset = 10, end_servo = SG90_data, start_servo = MG996R_data);
-
+arm_segment(arm_length = 100, thickness = 2.4, wire_in_offset = 10, end_servo = SG90_data, start_servo = MG996R_data);
 
 //base();
 
