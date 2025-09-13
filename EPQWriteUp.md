@@ -272,4 +272,15 @@ I think this might need quite a lot of tweeking to get right so I may print a bl
 I printed the first arm segment. The main things I was worried about was the wire hole not supporting and loosing rigidity and i didnt know how my teeth would work.
 My slicer said it would weigh 18 grams so I thought I should soon work a bit more on my torque calculator to include the arm weight as that was as significant as the servo.
 
-Previously I was using trinkey which is a browser based python editor. I then used homebrew to install python on my machine. This way I could add my python script to source control and run it localy.
+
+When I came back later the arm had successfully printed. I then realised that I used the diameter of the servo shaft istead of the radius so it was too big. Aswell as that I improved a few more things and added text to the side and used it to show the version number. When I tried to snap it for a durability test it was quite strong and held so I do not need to worry about that.
+I reprinted.
+There was still a few problems. (Shaft size, wire exit height, screws)
+I did anouther print.
+
+Previously I was using trinket which is a browser based python editor. I then used homebrew to install python on my machine. This way I could add my python script to source control and run it localy.
+
+Later that day I worked on the torque algorithm. I realised it had quite a big logic error so I had to rewrite it a bit.
+I made a new list that stored the current distances and the weights so I recalculate the torque at each arm.
+
+
