@@ -1,8 +1,6 @@
 use <servo.scad>
 include <component_data.scad>
 
-version_num = "v0.1";
-
 module box_container(size, thickness){
   translate([0,0,size[2]/2+thickness])
   difference(){
@@ -13,7 +11,7 @@ module box_container(size, thickness){
 }
 
 module arm_segment(arm_length = 100, thickness = 3, wire_in_offset = 25, end_servo = default_data, start_servo){
-
+  vnum = "v0.2";
   servo_bounds = get_servo_bounding_box(end_servo);
   servo_size = get_servo_size(end_servo);
   top_space = 0.25; // sligtly put top below xy plane
@@ -58,7 +56,7 @@ module arm_segment(arm_length = 100, thickness = 3, wire_in_offset = 25, end_ser
   translate([0,-width/2,-depth/2])
   rotate([90,0,0])
   linear_extrude(height = 1)
-  text(str("Armsegment ", version_num), size = depth/3, halign = "center", valign = "center");
+  text(str("ArmSegment ", vnum), size = depth/3, halign = "center", valign = "center");
 
 }
 //cut off ends diagonally for wires and aesthetics
@@ -121,9 +119,9 @@ module base(){
   height = 10;
 
   cylinder(h=height, r=radius, center=false);
-  translate([0,0,height])
+  translate([0,0,height+20])
   rotate([0,90,0])
-  servo_box();
+  arm_segment(arm_length = 25, thickness = 2.4, wire_in_offset = 10, end_servo = SG90_data);
 
 }
 
@@ -133,7 +131,7 @@ module base(){
 //   servo_shaft(MG996R_data);
 // }
 
-arm_segment(arm_length = 100, thickness = 2.4, wire_in_offset = 10, end_servo = SG90_data, start_servo = MG996R_data);
+arm_segment(arm_length = 100, thickness = 2.4, wire_in_offset = 10, end_servo = SG90_data, start_servo = SG90_data);
 
 //base();
 

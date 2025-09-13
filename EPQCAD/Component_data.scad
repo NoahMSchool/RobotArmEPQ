@@ -18,7 +18,7 @@ MG996R_data = [
     5,                  //wire_exit_amount
     
     25,                 //TeethCount
-    5.7,                //shaft_radius
+    6.4,                //shaft_diameter
     4,                  //shaft_depth
 ];
 
@@ -36,21 +36,29 @@ default_data = [
     3/4,        // WIRE_EXIT_WIDTH_FRAC
     0.5,         // TOLERANCE
     5,			//WIRE_EXIT_AMOUNT
+
+    25,                 //TeethCount
+    4,                //shaft_diameter
+    3,                  //shaft_depth
 ];
 
 
 SG90_data = [
     [22.5, 11.75, 16.1], // SIZE (L, W, H)
     6,                   // SHAFT_OFFSET
-    8.8,                   // SHAFT_HEIGHT
+    10,                   // SHAFT_HEIGHT
     1,                // THICKNESS
     1,                   // SCREW_COUNT
     2.9,                 // SCREW_OFFSET
     0,                  // SCREW_SEPARATION
-    1.6,                 // SCREW_RADIUS
+    1.0,                 // SCREW_RADIUS
     12,                  // SCREW_DEPTH
-    8,                   // WIRE_EXIT_HEIGHT
+    11,                   // WIRE_EXIT_HEIGHT
     3/4,                 // WIRE_EXIT_WIDTH_FRAC
     0.5,                  // TOLERANCE
-    5                    // WIRE_EXIT_AMOUNT
+    5,                    // WIRE_EXIT_AMOUNT
+
+    25,                 //TeethCount
+    5,                //shaft_diameter
+    3,                  //shaft_depth
 ];

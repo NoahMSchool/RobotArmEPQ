@@ -130,8 +130,8 @@ module servo_shaft(servo_data){
  teeth_count =servo_data[13];
  shaft_radius = servo_data[14]/2-teeth_depth;
  shaft_depth = servo_data[15];
- screw_radius = 1.75;
- hole_radius = 3;
+ screw_radius = 1.6;
+ hole_radius = 2;
  screw_hub_thickness = 0.8;
 rotate([180,0,0])
  translate([0,0,shaft_depth/2])
