@@ -1,41 +1,51 @@
+#Robot arm torque calculator
 
-g = 9.81
+#Segment (name, length/cm, segment_mass/g, effector)
+#Servo_data (mass/g, torque/kgcm^-1)  --Other effectors use this with zero torque
 
-#Servo_data (name, mass/g, torque/kgcm^-1)
+
+#components
+SG90 = (10, 1.8)
+electromagnet = (10,0)
 
 
-SG90a = ("A_SG90", 9, 1.8)
-SG90b = ("B_SG90", 9, 1.8)
-SG90c = ("C_SG90", 9, 1.8)
 
-#Segment (length/cm, segment_mass/g, effector)
-seg1 = (10, 20, SG90a)
-seg2 = (10, 20, SG90b)
-seg3 = (10, 20, SG90c)
+#SG90 arm
+arm = [("base", 0, 0, SG90), ("middle_seg", 10, 20, SG90), ("magnet", 10, 20, electromagnet)]
 
-arm = [seg1, seg1, seg1]
+#30cm work envelope
+#arm = [("base", 0, 0,SG90),("middle", 16, 35, SG90),("end", 16, 35, electromagnet)]
 
-weight_distances = []
 
-print("----------------")
+print("<---------------->")
+
+mass_distances = []
 
 for segment in reversed(arm):
-  for wd in weight_distances:
-    wd[1]+= segment[0]
-
-  weight_distances.append([segment[2][1]*0.001*g,0])
-  weight_distances.append([segment[1]*0.001*g,segment[0]/2])
 
   torque_req = 0
-  for wd in weight_distances:
-    torque_req += wd[0]*wd[1]
+  for md in mass_distances:
+    torque_req += md[0]*md[1]
 
-  if segment[2][2]<torque_req:
-    print(f"_{segment[2][0]}_ has too little torque : has {segment[2][2]} requires {round(torque_req, 2)}")
+  if segment[3][1]<torque_req:
+    print(f"_{segment[0]}_ has too little torque : has {segment[3][1]} requires {round(torque_req, 5)}")
   else:
-    print(f"_{segment[2][0]}_ has enough torque : has {segment[2][2]} requires {round(torque_req, 2)}")
+    print(f"_{segment[0]}_ has enough torque : has {segment[3][1]} requires {round(torque_req, 5)}")
+
+  for md in mass_distances:
+    md[1]+= segment[1]
 
 
+  mass_distances.append([segment[3][0]*0.001,segment[1]])
+  mass_distances.append([segment[2]*0.001,segment[1]/2])
+
+total_mass = 0
+
+for md in mass_distances:
+  total_mass += md[0]
+
+print("total mass:", round(total_mass, 5), "kg")
+print("total length: ", round(mass_distances[0][1], 5), "cm")
 
 #MG90D_1 = ("MG90D_ 1", 0, 1.5, 0.013)
 #MG90D_2 = ("MG90D_2", 6.5, 1.5, 0.013)

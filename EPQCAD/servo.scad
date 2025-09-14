@@ -119,7 +119,7 @@ module servo_spacing(servo_data){
     cube(servo_base_box, center = true);
 
     //wire exit
-    translate([size[0]/2+(screw_radius+screw_offset+thickness)+wire_exit_amount/2,0,-(size[2]-0.5)/2 + wire_exit_height/2])
+    translate([size[0]/2+(screw_radius+screw_offset+thickness)+wire_exit_amount/2,0,-(size[2]-0.5)/2-shaft_height/2+ wire_exit_height/2])
     cube([wire_exit_amount, size[1]*wire_exit_width_frac, wire_exit_height], true);
   }
 }

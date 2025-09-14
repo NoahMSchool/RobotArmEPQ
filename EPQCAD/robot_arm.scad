@@ -1,6 +1,8 @@
 use <servo.scad>
 include <component_data.scad>
 
+// X is forward
+
 module box_container(size, thickness){
   translate([0,0,size[2]/2+thickness])
   difference(){
@@ -112,17 +114,38 @@ module electromagnet(tolerance = 0.25, magnet_height = 15, wire_height = 10, wir
 }
 
 
-module base(){
-  $fn = 65;
+module base(base_servo, depth, height){
+  $fn = 16;
+  top_space = 0.25;
+  base_radius = 50;
+  base_height = 10;
+  off_center = 
+  thickness = 5;
 
-  radius = 37.5;
-  height = 10;
 
-  cylinder(h=height, r=radius, center=false);
-  translate([0,0,height+20])
-  rotate([0,90,0])
-  arm_segment(arm_length = 25, thickness = 2.4, wire_in_offset = 10, end_servo = SG90_data);
+  box_height = height+get_servo_bounding_box(base_servo)[0][0]
+  union(){
+    translate([0,0,base_height+height/2])
+    difference(){
+      cube([depth-top_space,25, height], center = true);
+      translate([(depth+top_space)/2,0,height/2])
+      rotate([0,90,0])
+      #servo_spacing(base_servo);
+    }
+    //servo  
+    translate([depth/2,0,base_height+height])
+    rotate([0,90,0])
+    servo_box(base_servo);
 
+    //base
+    cylinder(h=base_height, r=base_radius, center=false);
+
+  }
+  
+  
+  //translate([0,0,height+20])
+  //
+  //servo_box(base_servo);
 }
 
 // difference(){
@@ -131,9 +154,9 @@ module base(){
 //   servo_shaft(MG996R_data);
 // }
 
-arm_segment(arm_length = 100, thickness = 2.4, wire_in_offset = 10, end_servo = SG90_data, start_servo = SG90_data);
+//arm_segment(arm_length = 100, thickness = 2.4, wire_in_offset = 10, end_servo = SG90_data, start_servo = SG90_data);
 
-//base();
+base(SG90_data, depth = 35, height = 50);
 
 
 //electromagnet(tolerance = 0.25, magnet_height = 15, magnet_radius = 10, case_radius = 15, wire_height = 10, base_frac = 0.6, base_extrude = 4, magnet_surface_radius = 4, ball_radius = 6, ball_tolerance = 0.8, handle_height = 8, bar_radius = 1);

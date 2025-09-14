@@ -46,12 +46,12 @@ default_data = [
 SG90_data = [
     [22.5, 11.75, 16.1], // SIZE (L, W, H)
     6,                   // SHAFT_OFFSET
-    10,                   // SHAFT_HEIGHT
+    10.4,                   // SHAFT_HEIGHT
     1,                // THICKNESS
     1,                   // SCREW_COUNT
     2.9,                 // SCREW_OFFSET
     0,                  // SCREW_SEPARATION
-    1.0,                 // SCREW_RADIUS
+    1.2,                 // SCREW_RADIUS
     12,                  // SCREW_DEPTH
     11,                   // WIRE_EXIT_HEIGHT
     3/4,                 // WIRE_EXIT_WIDTH_FRAC
@@ -59,6 +59,6 @@ SG90_data = [
     5,                    // WIRE_EXIT_AMOUNT
 
     25,                 //TeethCount
-    5,                //shaft_diameter
+    5.6,                //shaft_diameter
     3,                  //shaft_depth
 ];

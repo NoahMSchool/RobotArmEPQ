@@ -280,7 +280,36 @@ I did anouther print.
 
 Previously I was using trinket which is a browser based python editor. I then used homebrew to install python on my machine. This way I could add my python script to source control and run it localy.
 
-Later that day I worked on the torque algorithm. I realised it had quite a big logic error so I had to rewrite it a bit.
+## Torque Algorithm
+
+I worked on the torque algorithm. I realised it had quite a big logic error so I had to rewrite it a bit.
 I made a new list that stored the current distances and the weights so I recalculate the torque at each arm.
 
 
+`Date: 13/09/2025`
+
+I then tested it with some cases that i wrote down on some paper. I got the expected results.
+I found out even with small sg90's they would work with the expected 20g arms 10cm long
+
+## Reprinting and testing assembly
+
+I reprinted the arm with a few tweeks. The screws were working nicely but the shaft was too small. I was confused why one servo was fitting worse than before but it was because there was anouther type of SG90 i was using.
+
+## Designing base
+
+I was thinking about how to design it. 
+I eventurally decided was going to make a new module but use parts from the arm segment module.
+I realised that its width would need to be the same as my top arm segments.
+I then decided I wanted to add some overide variables that would set lengths to fixed values if the space allows
+
+I had a longer think about it and drew some diagrams and thought about different ideas
+
+**Requirements**
+Should work without manual length setting
+Can have manual lengths set if user wants
+
+TODO
+
+Top find length function
+
+Offset base servo so top is in line with centre of base
