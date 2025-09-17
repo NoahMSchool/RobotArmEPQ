@@ -313,3 +313,28 @@ TODO
 Top find length function
 
 Offset base servo so top is in line with centre of base
+
+`Date: 15/09/2025`
+
+
+## Planning Design
+
+I spent a long time thinking and designing the arm and where the wires would go. I was drawing diagrams and tracing where the wires would go.
+I also went over the design and fixed bugs
+
+
+`Date: 16/09/2025`
+
+I decided that I wanted to go with the original design with one effector per limb. This would make the modular sizing easier as each limbs size would depend on the effector. And It is less risky in terms of weight distribution and arm size.
+
+This would mean that not all limbs are the same size however I dont think it will look bad if it is a bit asymetrical and I would rather make something that works.
+I added some more to the base cad. 
+
+The way I would structure the program is there is a main module that can create any component specified.
+At the beggining it would calculate neccessary parameters for modules that were linked. Such as the offsets of the base so the final effector is centered
+
+I made this but it currently consists of mostly comments/pseudocode about how I want to structuere it. 
+
+Immidate next steps are
+Make box size of servo, offset box so servo is relative to servo_off center
+

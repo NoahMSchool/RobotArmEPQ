@@ -3,6 +3,20 @@ include <component_data.scad>
 
 // X is forward
 
+module robot_arm(){
+ //Calculate arm off center base radius
+ //Switch statement to choose part to render
+
+  cube(size=[2,4,8], center=true);
+  //effector = 0;
+  //base_servo =; 0;
+  //middle_servo = 0;
+
+  //off_center = effectorarm_width/2
+  //base(off_center = base_off_center)
+}
+
+
 module box_container(size, thickness){
   translate([0,0,size[2]/2+thickness])
   difference(){
@@ -19,6 +33,8 @@ module arm_segment(arm_length = 100, thickness = 3, wire_in_offset = 25, end_ser
   top_space = 0.25; // sligtly put top below xy plane
   front_space = get_servo_shaft_radius(start_servo);
   back_space = abs(servo_bounds[0][0]);
+
+
   wire_cross = get_servo_wire_cross(end_servo);
 
   width = servo_size[1]+thickness;
@@ -114,39 +130,57 @@ module electromagnet(tolerance = 0.25, magnet_height = 15, wire_height = 10, wir
 }
 
 
-module base(base_servo, depth, height){
+module base(base_servo, depth, servo_height){
   $fn = 16;
+  thickness = 5;
   top_space = 0.25;
   base_radius = 50;
   base_height = 10;
-  off_center = 
-  thickness = 5;
+  servo_off_center = 15;
+  //thickness = 5;
 
 
-  box_height = height+get_servo_bounding_box(base_servo)[0][0]
+
+  box_height = servo_height+get_servo_bounding_box(base_servo)[1][0];
   union(){
-    translate([0,0,base_height+height/2])
+
+    //above base
+    translate([0,0,base_height])
+    union(){
+      difference(){
+        //box container
+        translate([0,-top_space/2,(box_height+thickness)/2])
+        cube([depth-top_space, get_servo_size(base_servo)[0]+thickness, thickness+box_height], center = true);
+        //servo_space
+        rotate([0,90,0])
+        servo_spacing(base_servo);
+      }
+      rotate([0,90,0])
+      servo_box(base_servo);
+      
+    }
+  }
+
+  //base
+  %cylinder(h=base_height, r=base_radius, center=false);
+} 
+/*
+"""
+    translate([0,0,base_height+box_height/2])
     difference(){
-      cube([depth-top_space,25, height], center = true);
+      cube([depth-top_space,25, box_height], center = true);
       translate([(depth+top_space)/2,0,height/2])
       rotate([0,90,0])
-      #servo_spacing(base_servo);
+      servo_spacing(base_servo);
     }
-    //servo  
-    translate([depth/2,0,base_height+height])
+    //servo space
+    translate([depth/2,0,base_height+box_height])
     rotate([0,90,0])
     servo_box(base_servo);
 
-    //base
-    cylinder(h=base_height, r=base_radius, center=false);
-
-  }
-  
-  
-  //translate([0,0,height+20])
-  //
-  //servo_box(base_servo);
-}
+    
+"""
+*/
 
 // difference(){
 //   translate([0,0,25.1])
@@ -155,11 +189,20 @@ module base(base_servo, depth, height){
 // }
 
 //arm_segment(arm_length = 100, thickness = 2.4, wire_in_offset = 10, end_servo = SG90_data, start_servo = SG90_data);
-
-base(SG90_data, depth = 35, height = 50);
-
+shaft_test();
+//base(SG90_data, depth = 35, servo_height = 50);
 
 //electromagnet(tolerance = 0.25, magnet_height = 15, magnet_radius = 10, case_radius = 15, wire_height = 10, base_frac = 0.6, base_extrude = 4, magnet_surface_radius = 4, ball_radius = 6, ball_tolerance = 0.8, handle_height = 8, bar_radius = 1);
 
 //Figure out how to attatch end of electromagnet
+
+module shaft_test(){
+  difference(){
+    cube([100,20, 20], center = true);
+    translate([0,0,10.25])
+    union(){
+      servo_shaft(SG90_data);
+    }
+  }
+}
 
