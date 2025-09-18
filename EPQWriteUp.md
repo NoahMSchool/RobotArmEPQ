@@ -338,3 +338,25 @@ I made this but it currently consists of mostly comments/pseudocode about how I 
 Immidate next steps are
 Make box size of servo, offset box so servo is relative to servo_off center
 
+`Date: 17/09/2025`
+
+## Servo Shaft fitting
+
+First I separated the servo shaft data into a new array datastrucure so my test module could use it. I am thinking about doing this with the other parameters. I am not sure it will be worth it though.
+
+I completed my part that would be used to print multiple different sized shafts.
+It used a loop to shift each servo shaft along the block and also the shaft radius slightly increased as it was multiplied each loop.
+I remeasured the shaft with my digital caliper around multiple orientiotions to get a rough Idea of the size. I made my program print 8 slightly different servos with slightly different radii starting slightly less than the measured value to slightly more. When I printed it I found that 5.2 mm was the sweet spot for the diameter which was acctually quite different to the 4.8mm I measured, maybe because of the gears. 
+It started loosing grip after time and wouldnt move the servo. I changed the gears and reprinted the module.
+
+
+
+
+
+
+I printed off the first
+
+
+
+
+https://images-na.ssl-images-amazon.com/images/I/61jUf7Q-0uL.pdf

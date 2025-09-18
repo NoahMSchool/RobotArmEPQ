@@ -1,5 +1,18 @@
 // ServoData
 
+//The top shaft gear info
+//shaft_data = [teeth count, shaft diameter, shaft depth]
+SG90_shaft_data = [21,5.2,3];
+MG996R_shaft_data = [25,6,3];
+
+//data for inner screws holding the servo
+//screw_data = [screw_count, screw_offset_screw_separation, screw_radius, screw_depth]
+
+SG90_screw_data = [1,2.9,0,1.2,12];
+//MG996R_screw_data = []
+
+//SG90_screw_data = [1,2,2.5,0.75,5]
+
 MG996R_data = [
     [40.3, 19.4, 27.5], // size
     10,                 // shaft_offset
@@ -16,10 +29,7 @@ MG996R_data = [
     3/4,                // wire_exit_width_frac
     0.75,               // tolerance
     5,                  //wire_exit_amount
-    
-    25,                 //TeethCount
-    6.4,                //shaft_diameter
-    4,                  //shaft_depth
+    SG90_shaft_data,     //sg90shaft_data
 ];
 
 default_data = [
@@ -36,10 +46,7 @@ default_data = [
     3/4,        // WIRE_EXIT_WIDTH_FRAC
     0.5,         // TOLERANCE
     5,			//WIRE_EXIT_AMOUNT
-
-    25,                 //TeethCount
-    4,                //shaft_diameter
-    3,                  //shaft_depth
+    SG90_shaft_data,
 ];
 
 
@@ -57,9 +64,6 @@ SG90_data = [
     3/4,                 // WIRE_EXIT_WIDTH_FRAC
     0.5,                  // TOLERANCE
     5,                    // WIRE_EXIT_AMOUNT
-
-    25,                 //TeethCount
-    5.6,                //shaft_diameter
-    3,                  //shaft_depth
+    SG90_shaft_data,   
 ];
 

@@ -27,11 +27,11 @@ module box_container(size, thickness){
 }
 
 module arm_segment(arm_length = 100, thickness = 3, wire_in_offset = 25, end_servo = default_data, start_servo){
-  vnum = "v0.2";
+  vnum = "v0.3";
   servo_bounds = get_servo_bounding_box(end_servo);
   servo_size = get_servo_size(end_servo);
   top_space = 0.25; // sligtly put top below xy plane
-  front_space = get_servo_shaft_radius(start_servo);
+  front_space = get_servo_shaft_radius(start_servo[13]);
   back_space = abs(servo_bounds[0][0]);
 
 
@@ -50,7 +50,7 @@ module arm_segment(arm_length = 100, thickness = 3, wire_in_offset = 25, end_ser
       
       //shaft hole
       translate([arm_length/2,0,0])
-      servo_shaft(start_servo);
+      servo_shaft(start_servo[13]); // 13 is servos shaft data
       
       //endservo spacing
       translate([-arm_length/2,0,0])
@@ -189,20 +189,32 @@ module base(base_servo, depth, servo_height){
 // }
 
 //arm_segment(arm_length = 100, thickness = 2.4, wire_in_offset = 10, end_servo = SG90_data, start_servo = SG90_data);
-shaft_test();
 //base(SG90_data, depth = 35, servo_height = 50);
 
 //electromagnet(tolerance = 0.25, magnet_height = 15, magnet_radius = 10, case_radius = 15, wire_height = 10, base_frac = 0.6, base_extrude = 4, magnet_surface_radius = 4, ball_radius = 6, ball_tolerance = 0.8, handle_height = 8, bar_radius = 1);
 
 //Figure out how to attatch end of electromagnet
 
-module shaft_test(){
+module shaft_test(shaft_data){
+  length = 100;
   difference(){
-    cube([100,20, 20], center = true);
-    translate([0,0,10.25])
-    union(){
-      servo_shaft(SG90_data);
+    cube([length-10,15, 20], center = false);
+    translate([0,10,20.1])
+      for (i = [1:1:8]){
+        current_shaft_diameter = 4.6+0.1*i;  //SG90 5.2
+        //shaft_data = [teeth count, shaft diameter, shaft depth]
+        
+        shaft_data = [21,current_shaft_diameter,3];
+
+        translate([i*10,0,0])
+        servo_shaft(shaft_data);
+        translate([i*10,-8,-0.4])
+        linear_extrude(5)
+        text(str(current_shaft_diameter), size = 4, halign = "center");
     }
   }
 }
+
+shaft_test(SG90_shaft_data);
+//servo_shaft(SG90_shaft_data);
 
