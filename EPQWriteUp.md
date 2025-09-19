@@ -1,6 +1,482 @@
 # EPQ WriteUp
 <br>
 
+## Brainstorming Ideas 
+
+`11/01/2024` 
+
+### Subjects : 
+
+Programming  
+Artificial Intelligence / Machine Learning  
+3D printing  
+Raspberry Pi  
+
+### Project Ideas  
+
+Making a robot using raspberry pi, servo motors and 3D printing  
+Walking Dog  
+How AI is contributing to Robotics  
+How reinforcement learning contributes to walking robots  
+Robot Arm that sorts objects by color (Lego)  
+How developments in VR and AR will impact consumer technology  
+Will XR glasses or XR headsets reach consumers first
+
+
+`11/08/2024`
+
+## Coming Up with initial Idea 
+
+Project Idea – 7/10  
+
+I got an idea to make a robot arm that could move things around. Maybe sort things by color and have a camera. 
+
+## Title
+
+How sure about the title – 4/10  
+
+Programable Robot Arm,	Robot Lego Sorter	  
+Researching robot arms 
+
+
+`11/15/2024`
+
+## Robot Arm Research
+
+I did some research on robot arms. I learned about the different form factors of differnt robot arms. Work envelopes which are the area the robot arm can access. I learned about the different parts of a robot arm that I would need to make, like the body, the gripper and the computer. 
+
+I could outline all the different systems I would need to make and also the optional things I could make if I have time.  
+
+The main tasks I needed to complete was to make my own custom 3D printed body. I wanted to do some programming using a raspberry pi and make some way to control it. A task I could do after is try to use computer vision to detect objects with cameras. 
+
+This is a video that I liked about robot arms
+https://www.youtube.com/watch?v=u5k2ewa1_is 
+
+
+ '11/16/2024'
+## Deciding on components 
+
+I had to figure out which types of components and models of components to use. 
+
+For the microcontroller I wanted to use raspberry pi. After some research I learned about the different types of motors and learned servo motors are the best for an arm. 
+
+`11/22/2024`
+## Deciding on project scope
+
+I will use a custom 3D printed Skeleton  
+I will use servo motors to allow the arm to move  
+I will use Inverse Kinematics to calculate how the joints of the arm need to rotate to move the end of the arm into position  
+I will use a raspberry pi to allow programming of the arm  
+I might use a camera or LIDAR to detect the position of objects so that the arm can pick up these objects  
+I could then make it sort objects by color such as Lego or fruit  
+ 
+
+## Making Pre-Designed robot arm 
+
+`11/25/2024` 
+## Finding Premade Model
+I found a model of a robot arm online that I 3D printed.
+
+Serv-Arm by Heartman - Thingiverse  
+
+## Ordering Servos
+Next, I bought some SG90 servo motors that the 3D printed body was designed to house. I needed to screw the servos in some holes that were left. 
+
+`11/26/2024`
+## Printing 
+There were many different parts to the robot arm that I needed to print separately. They came in a file with lots of different models. I had to choose which models I was going to use and then rotate the models in my slicing software to ensure that they were printed in the best quality. 
+
+Over the next few days I printed and reprinted the parts. I was having problems with my printer not adhering to the base so The prints kept on failing. This was very frustraiting. I tried different fillaments and different models. It tended to happen with larger parts.
+I was also looking into slicing settings.
+I got it to work by increasing the first layer height.
+
+`11/28/2024`
+## Arm Assembly
+Once the servos came I then assembled the arm with screws.
+I continued over the next few days while I also worked on electronics
+
+## Arm Electronics
+`01/08/2025` 
+
+## Functions of the Robot Arm to consider
+* Methods of control
+** Direct control of servos and magnet on the Breadboard (potentiometer and buttons)
+
+### Out of scope for the project
+* Vision to detect where they are?
+
+## Simple Component Tests:
+
+### Basic GPIO outputs
+
+```python
+pin = RPi.GPIO.setup(pin_number, GPIO.OUT)
+GPIO.output(pin_number, GPIO.LOW)  # Send a 0 or Low Signal
+GPIO.output(pin_number, GPIO.HIGH) # Send a 1 or High Signal
+```
+
+### Servos and Pulse Width Modulation Output
+
+Need for Pulse Width Modulation for Servo
+```python
+pwm = RPi.GPIO.PWM(pin_number, frequency)
+pwm.ChangeDutyCycle(duty)
+```   
+I also found a utility class ```gpiozero.Servo``` class.
+https://gpiozero.readthedocs.io/en/stable/api_output.html
+Note that my Servo needed a range of 500 to 2500 microseconds
+
+```python
+from gpiozero import Servo
+servo = Servo(pin_number, initial_value = 0, min_pulse_width = 0.5/1000, max_pulse_width = 2.5/1000)
+servo.value = v # Between -1 and 1 for a 180 degree movement range
+```
+
+### Potentiometers, Analog to Digital Converters and the I2C Protocol
+I learned there was 3 different Bus Protocols - UART, SPI and I2C
+The busio library controls these: https://pypi.org/project/ADS1x15-ADC/
+
+I2C Bus Protocol https://en.wikipedia.org/wiki/I%C2%B2C:
+https://www.robot-electronics.co.uk/i2c-tutorial
+Half Duplex
+
+```python
+import board
+import busio      
+i2c = busio.I2C(board.SCL,board.SDA)
+```
+I bought some ADS1115 Analog to Digital Converters
+Documentation here: https://pypi.org/project/ADS1x15-ADC/
+
+```python
+import adafruit_ads1x15.ads1115 as ADS
+from adafruit_ads1x15.analog_in import AnalogIn
+ads = ADS.ADS1115(i2c,address=0x48)
+pot = AnalogIn(ads, ADS.P0)
+print(pot.voltage, v)
+```
+
+
+## 3D Printing First Attempt:
+I decided to test my servos on a robot arm. I found this model online:
+https://www.thingiverse.com/thing:1684471
+
+It came in two parts - an arm and a controller. I only wanted the arm. It is a very simple model so was excellent for starting to understand how the motors work together. It has 4 servos:
+- a rotating on for the based
+- two arm joints
+- a gripper
+
+I learned about 3D printing. I have a Creality Ender 3 v3 printer. I am using a 0.4mm nozzle and PLA filamnent. I knew a bit about this from before as I did my Design and Technology GCSE with 3D printed parts
+
+In the beginning, the base of the model wouldn't print. The main issue was that the first layer was not sticking to the base. I tried:
+* releveling and recalibrating the printer
+* cleaning the nozzle. I replaced it and put it back
+* changing the temperature of the nozzle and the bed for the PLA
+In the end, the thing that seems to help the most was increasing the thickness of the first layer from 0.2mm to 0.4mm
+
+
+`01/01/2025`
+
+
+## Setting Up development Environment 
+
+Originally, I was coding directly on the raspberry pi. This was quite slow and difficult to program with. I wanted to be able to program the raspberry pi 4 directly from my computer. I had to use SSH (Secure Shell Protocol) to allow my computer to wirelessly connect to the raspberry pi. 
+
+I saved the commands I had to use in the terminal of my computer in my GitHub so I could paste it into the command line each time I wanted to work on the project. This allowed me to load my environment into sublime text so I could start writing code. 
+
+### Learning about RCA plugs
+In order to fit the servo motors into the frame, I had to remove the RCA plugs and put them back on again. The plugs have a small black clip for each wire. If you lift that, you can pull the wire out and then push them back to replace them.
+
+I needed to buy some M3 bolts and screws to secure the servos, and some glue to keep things together.
+I have set up one potentiometer per servo motor. Currently I have 3 working.
+I need to think about the cable maintanance as there are a lot of wires coming out of the arm and into the servos
+
+### Testing the model
+I created a circuit that used:
+- One potentiometer per servo
+- The potentiometers were wired into 4 channels of my analog to digital converter (ADC)
+- The ADC was wired into the Raspberry Pi IDC pins
+- Each servo had a Pulse Width Modulation Output Pin going into it
+The program simply had a loop that read the voltages of the ADC inputs (range of 0-3.3 V), and set the pulse widths to match (range of -1 to 1) using a map and clamp function I created
+
+## Setting up mac with raspberry Pi
+
+### Working directly on the raspeberry pi
+In the beggining I was working directly on the raspberry pi plugging a monitor, mouse and keyboard into the raspberry pi's ports. Using this I can control the raspberry pi with my mouse and keyboard.
+I was using the thonny editor on the raspberry pi. This was tedius because of all the setup every time. It was also very slow and difficult to type with with the lag.
+
+I wanted to try to set it up so I can connect remotely to the rasperry pi.
+In order to do this I needed to:
+* allow SSH to the raspberry pi
+* connect the raspeberry pi to the same network as the computer
+* mount the raspberry pi drive on my mac using macFuse and SSHFS
+
+### Enabling SSH
+SSH stands for secure shell which needs to be running on the raspberry pi so other computers can connect to it, I turned this on on the raspberry pi settings
+
+If we create a public/private key pair we can SSH without need the password every time
+On your Mac, generate an SSH key (if you don’t already have one):
+```ssh-keygen -t rsa -b 4096 -C "your_email@example.com"```
+
+Copy the key to the Raspberry Pi:
+```ssh-copy-id admin@192.168.86.250```
+
+This saves your public key on the Pi so you don’t have to type a password.
+Now, SSH without a password!
+ssh admin@192.168.86.250
+
+```ssh admin@192.168.86.250 "python3 /home/admin/src/RaspberryPiEpq/simpleLED.py"```
+
+### Mounting the drive
+```sshfs admin@192.168.86.250:/home/admin ~/mnt/pi -o reconnect,allow_other```
+
+Unmounting
+```umount ~/mnt/pi``` 
+
+### Creating a Build System in Sublime Text
+
+In Sublime Text, you can create a build system that runs your own commands when you press Cmd^B
+
+In my setup this will run the current python file
+
+```
+    "shell_cmd": "ssh admin@192.168.86.250 \"python3 /home/admin/src/RaspberryPiEpq/${file_name}\"",
+    "working_dir": "$file_path",
+    "selector": "source.python"
+}
+```
+
+`03/07/2025`
+
+## Researching Inverse Kinematics 
+
+Instead of manually controlling the angles of the robot arm I wanted it to take cartesian coordinates as input and then figure out the angles the joints needed rotate to rotate itself 
+
+The base was easy as I just used the inverse tan function to find the angle. This is as it is the bases rotation is independent of the other axis. 
+Next I had to figure out the two angles  
+I tried figuring out this myself for fun. I drew some diagrams on some paper and tried to use trigonometry to solve for the angles. 
+First I did a more general example using real numbers trying figure out the angle.  
+I used Pythagoras to find the distance of the point in space to the origin and the cosine rule to solve for the angles 
+I then tried to use variables instead of the numbers which is necessary for a general algorithm to find the angles. This algorithm would work for any angle and lengths of the arms. 
+For this there would also always be two solutions and sometimes no solutions so I would need to add constraints to the arms rotation. 
+
+ 
+After this I tried to validate my work using this video by RoTechnic: 
+Easy inverse kinematics for robot arms 
+Simulating Inverse Kinematics 
+
+`03/014/2025` 
+
+Firstly, I needed to simulate how the math's behind the inverse kinematics would work. I tried a few different programs. I used blenders built in Inverse Kinematics for a reference of what I wanted. 
+I first tried to write a program in Sprite Kit which is a simple graphics library. I also considered using blenders python scripting for this 
+I eventually chose to do it in Godot as I can code it to be the most realistic as it is 3D and I can add a skin to it to see how it will look. 
+
+ 
+### Researching Modeling Software 
+
+`01/05/2024`
+
+As I was going to make 3D printing to make my arm, I needed to decide which software I needed to model it. I initially wanted to use blender as I had experience with it but after researching I learned that blender was not great for this kind of design and a software with parametric moddeling is more suitable. 
+Something like fusion360 is much better for making scale models that fit components. I also used AI asking ChatGPT to compare the benefits and drawbacks of both blender fusion 360. 
+
+I spend the evening trying to learn Fusin 360 because i thought that was the most suitable 
+ 
+
+### Godot Computer Simulation 
+
+`16/05/2025`
+
+Making Computer simulation in Godot 
+Godot is a game engine that I wanted to use to make a simulation for the whole arm. I would use it to practice programming inverse kinematics. For attaching the real 3D models to it and experimenting with getting it to pick up objects 
+
+`18/05/2025`
+
+I tried different combinations of nodes in godot, I first tried to use the built in Springarm Node then I tried to make a custom node setup. I then decided to modify each arm segment individually as they all had different needs 
+
+`30/05/2025`
+
+### Researching connecting Godot to raspberry pi 
+
+I wanted to use my godot computer simulation to control the arm.
+The best solution was to host a web server on the raspberry pi where I would control it remotely from my mac.
+
+`31/01/2024`
+
+I wanted a feature of my robot arm to be able to connect to a computer and be controlled directly from the Godot simulation on my computer. 
+I decided I was going to host a web server on the raspberry pi, the Godot game would directly write to that server and the raspberry pi would interpret these instructions. 
+
+I then decided to practice using API calls in one of my Godot games I had been working on, I first used an API to get some jokes and then I used an API Where the ISS at? that would give me the position of the ISS when I called it. I used a HTTP request node and a script to get the position and I used it to make a satellite that orbited the world with the same longitude and latitude as the ISS at this time. 
+
+
+ `11/06/2025 `
+### Researching the gripper 
+
+
+If I want to pick up objects with my arm, I need a way for it to grip objects. 
+The main options were two finger and three finger grippers 
+Vacuum grippers which act like suction cups 
+Magnetic grippers 
+I thought what material and mechanism to use 
+
+ My favorite option was the magnetic gripper. I could use an electromagnet that I could turn on and off. This would allow me to easily pick up and drop magnetic objects like steel balls. This would make it easier to achieve precise control over the objects it is holding while being more reliable as I do not need to worry about the object slipping and confusing the system 
+
+`21/06/2025`
+### Learning FreeCAD
+I tried to learn freecad for a week I followed some tutorials
+
+`28/06/2025`
+### Installing and learning OpenSCAD 
+
+After trying to learn FreeCad for a week I was still struggling. I decided to try to install OpenSCAD which is a CAD software for programmers. This lead me to learn more about the command line as I had to install it through homebrew. 
+
+
+
+`05/08/2025`
+
+ 
+
+$fn = 32; 
+
+  
+
+rotate(a=90, v=[0,1,0]) 
+
+sphere(5); 
+
+$fn = 16; 
+
+for (i = [0:30:330]){ 
+
+echo(i) 
+
+rotate(a=i,v=[1,0,0]) 
+
+translate([0,0,5]) 
+
+cylinder(h=10, r1=1, r2 = 3); 
+
+} 
+
+Move to a markdown Project 
+
+ 
+
+For the next few days I continued practicing making shapes and learning the basics of OpenSCAD using the linked video tutorials, the cheat sheet, and Google Gemini while practicing. 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+I finally built a servo model 
+
+I started with a base and used boolean operations to  
+
+My design is very flexible and allows for different servo shapes, thicknesses, wire exits, screw sizes, offset and more  allowing it to be adapted to many different servos 
+
+ 
+
+I first adapted it to a SG90 servo 
+
+ 
+
+This involved lots of reprinting and adjusting my exposed parameters until it fit perfectly. 
+
+My first attempt was supprisingly close and it already fit quite well. However the screws did not fit or line up, parts were to loose and I realised there was a gap in the bottom. 
+
+In total I did 8 attempts before I perfected it. 
+
+I also realised some improvements in my code that would mean it is easier to adapt in future. (mostly changing how the offsets rely on each other. 
+
+The idea is I can instantiate this as a reusable module as a part of the other larger components of the arm 
+
+ 
+
+I next had to finalise the components I was going to use. 
+
+The choice of servo motors was quite straightforward as there was little and simple to choose from options. 
+
+ 
+
+With the electromagnet It required more research. 
+
+I was initially unsure what I needed. I started with a push pull solenoid before realising this was not right.  
+
+I eventually found a small electromagnet that would work. It had a holding force of 2.5kg which I initially thought was extreamly overkill as it needed to carry 20g spheres however I learned that the holding force is not the same as the force to pick something to pick something up it should be divided by a factor of 5 or 10 and also the fact that my objects are spherical not flat means there is less surface area to attract meaning that this electromagnetwas just right 
+
+ 
+
+ 
+
+https://openscad.org/cheatsheet/index.html?version=2021.01 
+
+https://www.youtube.com/watch?v=oTCu2hCuqfg&list=PLkRx3bM9e3yDK0NlFz-GomPfkst1ofT5y&index=1 
+
+
+
+ 
+
+ 
+
+https://www.amazon.co.uk/yusvwkj-Helicopter-Airplane-Mechanical-Waterproof/dp/B08XHWCS1R/ref=sr_1_1_sspa?crid=KS51G24JRPD4&dib=eyJ2IjoiMSJ9.D-t4hKDeuOxvcXYG0oVDMS4PIL1gT3dLHffNDWqnEUJ1A2NBkZMdj5Kr-koS38nLJKwShqtwl2WXgHJfu3PeNJBIIwZFLhuKPJDnGCIm2ipysHmIkWDIP7Wnr7tV_n-WiI6gArwDKpKfewKgq-g8h2rfAem2fEudF2VxZtQaQc6vo2ZL1reB8NrHKpiy8rintHqXiT1ss5fRwBwMZKA1hLSKk0DAFGhNyBIFCsJZaX_x1xqykF9Dw_8SM2xDTUKA1EzhZgiz6SkV36B3ko_4HlJRSkbU82LijA3JNwiZ1IU.25FR426NNNdaDipbuuIdED69Gkc39LVB98uAxpmO8lg&dib_tag=se&keywords=towerpro%2Bservo%2Bmotor%2B-%2Bmg996r%2B360%2Bmetal%2Bgear&qid=1752356386&sprefix=MG996R%2Btower%2Caps%2C70&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1 
+
+ 
+
+Choosing Components 
+
+12/06/2025 
+
+Before making the model I had to finalise the components that I was going to use so I could make the englosure around them. 
+
+Electromagnet 
+
+https://thepihut.com/products/small-push-pull-solenoid-12vdc 
+
+https://thepihut.com/products/mini-push-pull-solenoid-5v 
+
+ 
+
+Servos 
+
+ 
+
+https://thepihut.com/products/servo-motor-mg996r-high-torque-metal-gear?srsltid=ARcRdnpizNyWNPJ9_e3-erIbrxfITi6vHZ5jLgyimcGtfAZI8Y49Nv9W 
+
+Ball Bearings 
+
+https://www.amazon.co.uk/sourcing-map-Bearing-Stainless-Precision/dp/B07YKSD1SH/ref=sr_1_9?dib=eyJ2IjoiMSJ9.x0JxWxhUIVfokdMkT6AFg1PfWcp5vhWm6pB-xcVL5T3jWvmy3ctmrjqjrDzCC4BAPLv6hfJbZ6NTEl4qJf1x5e66pGc4qcgv6xCHjJRJUpLuSUz82j3x4v7KQM_oNGNClJmEPyWdqlznNTLS5BSy6S-Kahnmzskd34n-ECNHiXiqKjBqLEtiz5UGTwve7Plo2Gk38uowR5WP4DkxHGl7c4WHXDABHYBcIip6iL7_QYhOHwycBYs1FMS1AB6gFHloHrv-lTpuYaDuJUSrIYuFRxhZRPUkwE-BpLh9-0ntICI.EAJs3MCR7diZwUGhz4Ux-5wixyV0isM0azREpUpVmm0&dib_tag=se&keywords=steel%2Bball%2Bbearings&qid=1753303104&sr=8-9&th=1 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 `Date: 14/08/2025`
 
 ### Torque Calculator
