@@ -27,7 +27,7 @@ module box_container(size, thickness){
 }
 
 module arm_segment(arm_length = 100, thickness = 3, wire_in_offset = 25, end_servo = default_data, start_servo){
-  vnum = "v0.3";
+  vnum = "v0.4";
   servo_bounds = get_servo_bounding_box(end_servo);
   servo_size = get_servo_size(end_servo);
   top_space = 0.25; // sligtly put top below xy plane
@@ -130,75 +130,75 @@ module electromagnet(tolerance = 0.25, magnet_height = 15, wire_height = 10, wir
 }
 
 
-module base(base_servo, depth, servo_height){
+module base(base_servo, servo_height){
   $fn = 16;
-  thickness = 5;
+  thickness = 3;
   top_space = 0.25;
   base_radius = 50;
-  base_height = 10;
-  servo_off_center = 15;
-  //thickness = 5;
+  base_height = 5;
+  servo_off_center = 0;
+  depth = abs(get_servo_bounding_box(base_servo)[0][2]);
+  width = get_servo_size(base_servo)[1];
+  wire_cross = get_servo_wire_cross(base_servo);
+  wiretunnel_offset = get_servo_wire_offset(base_servo);
+  wiretunnel_depth = 0;
 
 
-
-  box_height = servo_height+get_servo_bounding_box(base_servo)[1][0];
+  box_height = servo_height+abs(get_servo_bounding_box(base_servo)[0][0])+thickness;
   union(){
-
     //above base
-    translate([0,0,base_height])
+    translate([servo_off_center,0,base_height])
     union(){
+      translate([-get_servo_size(base_servo)[1],-width/2-thickness,box_height/2])
+      rotate([90,-90,0])
+      linear_extrude(1)
+      text("Base v0.1",valign = "center", halign = "center", size = 10);
+
       difference(){
         //box container
-        translate([0,-top_space/2,(box_height+thickness)/2])
-        cube([depth-top_space, get_servo_size(base_servo)[0]+thickness, thickness+box_height], center = true);
+        translate([-(depth+top_space+thickness)/2,0,box_height/2])
+        cube([depth-top_space+thickness, width+thickness*2, box_height], center = true);
         //servo_space
+        translate([0,0,servo_height])
         rotate([0,90,0])
         servo_spacing(base_servo);
+
+        
+        //wire tube
+        tunnel_height = servo_height-get_servo_bounding_box(base_servo)[1][0]+0.2;
+        translate([get_servo_wire_offset(base_servo)[2]+get_servo_box_offset(base_servo)[2],0,tunnel_height/2+0.1])
+        cube([wire_cross[2],wire_cross[1],tunnel_height],center = true);
+
+        //wire exit
+        tunnel_depth = abs(get_servo_wire_offset(base_servo)[2]+get_servo_box_offset(base_servo)[2]);
+        translate([-tunnel_depth/2,0,wire_cross[2]/2])
+        cube([tunnel_depth,wire_cross[1],wire_cross[2]],center = true);
+
       }
+      //servo
+      translate([0,0,servo_height])
       rotate([0,90,0])
       servo_box(base_servo);
-      
     }
+    //base_cylnder
+    cylinder(h=base_height, r=base_radius, center=false);
   }
 
-  //base
-  %cylinder(h=base_height, r=base_radius, center=false);
+
 } 
-/*
-"""
-    translate([0,0,base_height+box_height/2])
-    difference(){
-      cube([depth-top_space,25, box_height], center = true);
-      translate([(depth+top_space)/2,0,height/2])
-      rotate([0,90,0])
-      servo_spacing(base_servo);
-    }
-    //servo space
-    translate([depth/2,0,base_height+box_height])
-    rotate([0,90,0])
-    servo_box(base_servo);
-
-    
-"""
-*/
-
-// difference(){
-//   translate([0,0,25.1])
-//   cube(50, center = true);
-//   servo_shaft(MG996R_data);
-// }
-
-//arm_segment(arm_length = 100, thickness = 2.4, wire_in_offset = 10, end_servo = SG90_data, start_servo = SG90_data);
-//base(SG90_data, depth = 35, servo_height = 50);
-
-//electromagnet(tolerance = 0.25, magnet_height = 15, magnet_radius = 10, case_radius = 15, wire_height = 10, base_frac = 0.6, base_extrude = 4, magnet_surface_radius = 4, ball_radius = 6, ball_tolerance = 0.8, handle_height = 8, bar_radius = 1);
 
 //Figure out how to attatch end of electromagnet
 
 module shaft_test(shaft_data){
   length = 100;
   difference(){
-    cube([length-10,15, 20], center = false);
+    union(){
+      cube([length-10,15, 20], center = false);
+      rotate([90,0,0])
+      translate([0,5,0])
+      linear_extrude(1.6)
+      text("ServoShaftFitter v0.4", size = 7);
+    }
     translate([0,10,20.1])
       for (i = [1:1:8]){
         current_shaft_diameter = 4.6+0.1*i;  //SG90 5.2
@@ -208,13 +208,17 @@ module shaft_test(shaft_data){
 
         translate([i*10,0,0])
         servo_shaft(shaft_data);
-        translate([i*10,-8,-0.4])
+        translate([i*10,-8,-4.5])
         linear_extrude(5)
-        text(str(current_shaft_diameter), size = 4, halign = "center");
+        text(str(current_shaft_diameter), size = 5, halign = "center");
     }
   }
 }
 
-shaft_test(SG90_shaft_data);
+//shaft_test(SG90_shaft_data);
 //servo_shaft(SG90_shaft_data);
 
+//arm_segment(arm_length = 100, thickness = 2.4, wire_in_offset = 10, end_servo = SG90_data, start_servo = SG90_data);
+base(SG90_data, servo_height = 50);
+//servo_box(SG90_data);
+//electromagnet(tolerance = 0.25, magnet_height = 15, magnet_radius = 10, case_radius = 15, wire_height = 10, base_frac = 0.6, base_extrude = 4, magnet_surface_radius = 4, ball_radius = 6, ball_tolerance = 0.8, handle_height = 8, bar_radius = 1);

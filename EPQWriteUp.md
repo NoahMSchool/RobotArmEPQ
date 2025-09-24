@@ -825,14 +825,23 @@ It used a loop to shift each servo shaft along the block and also the shaft radi
 I remeasured the shaft with my digital caliper around multiple orientiotions to get a rough Idea of the size. I made my program print 8 slightly different servos with slightly different radii starting slightly less than the measured value to slightly more. When I printed it I found that 5.2 mm was the sweet spot for the diameter which was acctually quite different to the 4.8mm I measured, maybe because of the gears. 
 It started loosing grip after time and wouldnt move the servo. I changed the gears and reprinted the module.
 
+`Date: 18/09/2025`
+
+I finished reprinting and testing with a name
 
 
+`Date: 19/09/2025`
 
 
+## Finished Base
 
 I printed off the first
 
 
+`Date: 20/09/2025`
+
+In the morning I finished the base and changed the arm to fit with the servo shaft fittingthen I printed the 
 
 
 https://images-na.ssl-images-amazon.com/images/I/61jUf7Q-0uL.pdf
+

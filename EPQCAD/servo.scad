@@ -56,6 +56,9 @@ module servo_box(servo_data){
   servo_base = [size[0]+tolerance*3, size[1]+ tolerance *2, size[2]+thickness];
   servo_base_box = get_servo_size(servo_data)-[0,0,shaft_height];
   union(){
+    //translate([get_servo_bounding_box(servo_data)[0][0],0,0])
+    //cube(2,center = true);
+
 
     translate(get_servo_box_offset(servo_data))  
     difference(){  
@@ -131,8 +134,8 @@ module servo_shaft(servo_shaft_data){
  teeth_count = servo_shaft_data[0];
  shaft_radius = servo_shaft_data[1]/2-teeth_depth;
  shaft_depth = servo_shaft_data[2];
- screw_radius = 1.6;
- hole_radius = 2;
+ screw_radius = 1.4;
+ hole_radius = 2.9;
  screw_hub_thickness = 0.8;
 rotate([180,0,0])
  translate([0,0,shaft_depth/2])

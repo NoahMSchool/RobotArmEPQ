@@ -6,6 +6,9 @@
 
 #components
 SG90 = (10, 1.8)
+MG90D = (15, 3.5)
+
+
 electromagnet = (10,0)
 
 
@@ -46,6 +49,3 @@ for md in mass_distances:
 
 print("total mass:", round(total_mass, 5), "kg")
 print("total length: ", round(mass_distances[0][1], 5), "cm")
-
-#MG90D_1 = ("MG90D_ 1", 0, 1.5, 0.013)
-#MG90D_2 = ("MG90D_2", 6.5, 1.5, 0.013)
