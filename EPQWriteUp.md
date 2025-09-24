@@ -848,6 +848,7 @@ https://images-na.ssl-images-amazon.com/images/I/61jUf7Q-0uL.pdf
 ## Assembling printed arm
 I assembled my first arm with the two printed components.
 I had to fit the screws and the wires in and it was reletively straightforward.
+
 `22/09/25`
 ## Debugging servos
 I was trying to get the servos to move to a specified rotation
@@ -858,3 +859,10 @@ I finally realised it was because I was using a external power supply for the se
 pi were sending as it had no reference of what to compare the voltage to. That is why it was randomly moving.
 
 After rewiring I ran my previous program and it worked
+
+
+## Godot Editor Scripts and Parameters
+
+I worked for a while on the Godot project, I wanted to get in a state where I could just send the HTTP requests to the web server on the Pi.
+I wanted to be able to preview the arm in the editor when I changed parameters. Since everything was being done in code I previously could not see what it was doing until I ran.
+I learned about editor scripts which allowed me to preview it.
