@@ -437,9 +437,9 @@ https://www.amazon.co.uk/yusvwkj-Helicopter-Airplane-Mechanical-Waterproof/dp/B0
 
  
 
-Choosing Components 
+## Choosing Components 
 
-12/06/2025 
+`12/06/2025`
 
 Before making the model I had to finalise the components that I was going to use so I could make the englosure around them. 
 
@@ -451,13 +451,13 @@ https://thepihut.com/products/mini-push-pull-solenoid-5v
 
  
 
-Servos 
+### Servos 
 
  
 
 https://thepihut.com/products/servo-motor-mg996r-high-torque-metal-gear?srsltid=ARcRdnpizNyWNPJ9_e3-erIbrxfITi6vHZ5jLgyimcGtfAZI8Y49Nv9W 
 
-Ball Bearings 
+### Ball Bearings 
 
 https://www.amazon.co.uk/sourcing-map-Bearing-Stainless-Precision/dp/B07YKSD1SH/ref=sr_1_9?dib=eyJ2IjoiMSJ9.x0JxWxhUIVfokdMkT6AFg1PfWcp5vhWm6pB-xcVL5T3jWvmy3ctmrjqjrDzCC4BAPLv6hfJbZ6NTEl4qJf1x5e66pGc4qcgv6xCHjJRJUpLuSUz82j3x4v7KQM_oNGNClJmEPyWdqlznNTLS5BSy6S-Kahnmzskd34n-ECNHiXiqKjBqLEtiz5UGTwve7Plo2Gk38uowR5WP4DkxHGl7c4WHXDABHYBcIip6iL7_QYhOHwycBYs1FMS1AB6gFHloHrv-lTpuYaDuJUSrIYuFRxhZRPUkwE-BpLh9-0ntICI.EAJs3MCR7diZwUGhz4Ux-5wixyV0isM0azREpUpVmm0&dib_tag=se&keywords=steel%2Bball%2Bbearings&qid=1753303104&sr=8-9&th=1 
 
@@ -825,14 +825,24 @@ It used a loop to shift each servo shaft along the block and also the shaft radi
 I remeasured the shaft with my digital caliper around multiple orientiotions to get a rough Idea of the size. I made my program print 8 slightly different servos with slightly different radii starting slightly less than the measured value to slightly more. When I printed it I found that 5.2 mm was the sweet spot for the diameter which was acctually quite different to the 4.8mm I measured, maybe because of the gears. 
 It started loosing grip after time and wouldnt move the servo. I changed the gears and reprinted the module.
 
-
-
-
-
-
 I printed off the first
 
 
 
 
 https://images-na.ssl-images-amazon.com/images/I/61jUf7Q-0uL.pdf
+
+## Assembling printed arm
+I assembled my first arm with the two printed components.
+I had to fit the screws and the wires in and it was reletively straightforward.
+`22/09/25`
+## Debugging servos
+I was trying to get the servos to move to a specified rotation
+
+Whenever I was touching the servos it was moving randomly and I was confused as I was running the same programs that previously worked were not working
+I spend an hour debugging why the servos were doing this. I tried different programs and looked at how the servos were being turned of and the wiring and components I was using.
+I finally realised it was because I was using a external power supply for the servos. The servos and the pi did not have a common ground. This meant the servos did not understand the pwm signals that the
+pi were sending as it had no reference of what to compare the voltage to. That is why it was randomly moving.
+
+After rewiring I ran my previous program and it worked
+
