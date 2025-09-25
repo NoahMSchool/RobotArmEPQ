@@ -855,14 +855,28 @@ I was trying to get the servos to move to a specified rotation
 
 Whenever I was touching the servos it was moving randomly and I was confused as I was running the same programs that previously worked were not working
 I spend an hour debugging why the servos were doing this. I tried different programs and looked at how the servos were being turned of and the wiring and components I was using.
+
 I finally realised it was because I was using a external power supply for the servos. The servos and the pi did not have a common ground. This meant the servos did not understand the pwm signals that the
 pi were sending as it had no reference of what to compare the voltage to. That is why it was randomly moving.
 
-After rewiring I ran my previous program and it worked
+After rewiring by connecting the ground of the pi to the power supply ground. I ran my previous program and it worked
 
-
+`24/09/25`
 ## Godot Editor Scripts and Parameters
 
 I worked for a while on the Godot project, I wanted to get in a state where I could just send the HTTP requests to the web server on the Pi.
 I wanted to be able to preview the arm in the editor when I changed parameters. Since everything was being done in code I previously could not see what it was doing until I ran.
 I learned about editor scripts which allowed me to preview it.
+
+`25/09/25`
+
+## Adding Servo Functions
+I made some functions that would get the servo to move to a specific angle.
+I had to tweek the range of pulse widths that the servo could understand so I looked at the specs and then ran some functions until it was right.
+
+## HTTP request
+I first tested the HTTP request from the browser.
+I then sent it using godot
+
+This is an example of a request that gets it to move:
+`http://192.168.86.44:8080/servos?base_angle=-60&middle_angle=80`
