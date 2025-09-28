@@ -35,9 +35,9 @@ module electromagnet_sphere(){
         intersection(){
         translate([0,0,wire_height-wirehole_radius])
         cylinder(h=handle_height+bar_radius*2-(wire_height-wirehole_radius), r=case_radius, center=false);
-        translate([0,0,handle_height/2])
-        rotate([0,90,0])
-        cylinder(r = case_radius, h = case_radius*2, center = true);
+        //translate([0,0,handle_height/2])
+        //rotate([0,90,0])
+        //cylinder(r = case_radius, h = case_radius*2, center = true);
         }
         //inner
         translate([0,0,wire_height-wirehole_radius-0.01])
