@@ -22,7 +22,7 @@ MG996R_data = [
     2,                  // screw_count
     4.2,                // screw_offset
     10,                 // screw_separation
-    2,                  // screw_radius
+    1,                  // screw_radius
     15,                 // screw_depth
     
     14,                 // wire_exit_height

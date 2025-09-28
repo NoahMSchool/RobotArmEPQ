@@ -880,3 +880,35 @@ I then sent it using godot
 
 This is an example of a request that gets it to move:
 `http://192.168.86.44:8080/servos?base_angle=-60&middle_angle=80`
+
+
+`27/09/2025`
+
+## Designing and printing third arm segment
+
+I designed the arm segment with a curved end so the magnet would stay in place.
+I went through 3 iterations before I got one that worked well
+
+## AutoStarting Web Server
+
+```
+
+admin@raspberrypi:~/src/RaspberryPiEpq $ sudo systemctl daemon-reload
+admin@raspberrypi:~/src/RaspberryPiEpq $ sudo systemctl enable robot_server.service
+Created symlink /etc/systemd/system/multi-user.target.wants/robot_server.service → /etc/systemd/system/robot_server.service.
+admin@raspberrypi:~/src/RaspberryPiEpq $ sudo systemctl start robot_server.service
+admin@raspberrypi:~/src/RaspberryPiEpq $ sudo systemctl status robot_server.service
+● robot_server.service - EPQ robot arm controller
+     Loaded: loaded (/etc/systemd/system/robot_server.service; enabled; vendor preset: enabled)
+     Active: active (running) since Sat 2025-09-27 22:13:03 BST; 35s ago
+   Main PID: 1500 (python3)
+      Tasks: 4 (limit: 4915)
+        CPU: 572ms
+     CGroup: /system.slice/robot_server.service
+             └─1500 /usr/bin/python3 /home/admin/src/RaspberryPiEpq/pig.py
+
+Sep 27 22:13:03 raspberrypi systemd[1]: Started EPQ robot arm controller.
+
+```
+
+

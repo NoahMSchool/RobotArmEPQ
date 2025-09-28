@@ -5,16 +5,16 @@
 
 
 #components
-SG90 = (10, 1.8)
+SG90 = (10, 1.4)
 MG90D = (15, 3.5)
+MG996R = (55, 10)
 
-
-electromagnet = (10,0)
+electromagnet = (20,0)
 
 
 
 #SG90 arm
-arm = [("base", 0, 0, SG90), ("middle_seg", 10, 20, SG90), ("magnet", 10, 20, electromagnet)]
+arm = [("base", 0, 0, SG90), ("middle_seg", 10, 25, SG90), ("magnet", 10, 20, electromagnet)]
 
 #30cm work envelope
 #arm = [("base", 0, 0,SG90),("middle", 16, 35, SG90),("end", 16, 35, electromagnet)]
@@ -28,6 +28,7 @@ for segment in reversed(arm):
 
   torque_req = 0
   for md in mass_distances:
+    print(md[0],md[1])
     torque_req += md[0]*md[1]
 
   if segment[3][1]<torque_req:
