@@ -35,3 +35,6 @@ electromagnet_sphere();
 //base(base_radius = 75, base_height = 5, base_servo = MG996R_data, servo_height = 75, servo_off_center = -10, thickness = 5);
 
 //effector_segment(arm_length = 100, beam_diameter = 2, start_servo = SG90_data, wire_in_offset = 15, width = 18, magnet_depth= 10);
+
+
+//electromagnet(tolerance = 0.25, magnet_height = 15, magnet_radius = 10, case_radius = 15, base_frac = 0.6, base_extrude = 4, magnet_surface_radius = 4, ball_radius = 6, ball_tolerance = 0.8, handle_height = 10, bar_radius = 1);
