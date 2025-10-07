@@ -58,7 +58,9 @@ module servo_box(servo_data){
   union(){
     //translate([get_servo_bounding_box(servo_data)[0][0],0,0])
     //cube(2,center = true);
-
+    //basez = abs(get_servo_bounding_box(servo_data)[0][2]);
+    //translate([0,servo_base_box[1]/2+2,-basez/2])
+    //cube([4,4,basez], center = true);
 
     translate(get_servo_box_offset(servo_data))  
     difference(){  
@@ -128,9 +130,10 @@ module servo_spacing(servo_data){
   }
 }
 
-module servo_shaft(servo_shaft_data){
+module servo_shaft(servo_shaft_data, extend = 50){
  $fn = 12;
- teeth_depth = 0.4;
+ //teeth_depth = servo_shaft_data[3];
+ teeth_depth = 0.6;
  teeth_count = servo_shaft_data[0];
  shaft_radius = servo_shaft_data[1]/2-teeth_depth;
  shaft_depth = servo_shaft_data[2];
@@ -143,9 +146,9 @@ rotate([180,0,0])
   //gear
   cylinder(h=shaft_depth, r=shaft_radius, $fn = teeth_count, center = true);
   //d
-  cylinder(h = 20, r = screw_radius);
+  cylinder(h = extend, r = screw_radius);
   translate([0,0,shaft_depth/2+screw_hub_thickness])
-  cylinder(h = 50, r = hole_radius);
+  cylinder(h = extend, r = hole_radius);
  
     for (i = [0:teeth_count]){
       rotate([0,0,360*i/teeth_count-180/teeth_count])

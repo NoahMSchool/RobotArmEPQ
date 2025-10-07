@@ -1,3 +1,5 @@
+use <servo.scad>
+
 module box_container(size, thickness){
   translate([0,0,size[2]/2+thickness])
   difference(){
@@ -15,11 +17,11 @@ module shaft_test(shaft_data){
       rotate([90,0,0])
       translate([0,5,0])
       linear_extrude(1.6)
-      text("ServoShaftFitter v0.4", size = 7);
+      text("ServoShaftFitter v0.5", size = 7);
     }
     translate([0,10,20.1])
       for (i = [1:1:8]){
-        current_shaft_diameter = 4.6+0.1*i;  //SG90 5.2
+        current_shaft_diameter = 5.5+0.1*i;  //SG90 5.2
         //shaft_data = [teeth count, shaft diameter, shaft depth]
         
         shaft_data = [21,current_shaft_diameter,3];

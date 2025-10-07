@@ -1,12 +1,12 @@
 include <component_data.scad>
 use <servo.scad>
 
-module effector_segment(arm_length = 100, beam_diameter = 2, start_servo = default_data, wire_in_offset = 15, width = 18, magnet_depth= 15){
-  vnum = "v0.3";
+module effector_segment(arm_length = 100, beam_diameter = 2, start_servo = default_data, wire_in_offset = 15, width = 18, magnet_diameter= 20){
+  vnum = "v0.4";
   top_space = 0.25; // sligtly put top below xy plane
   front_space = get_servo_shaft_radius(start_servo[13]);
   wire_cross = [7.5,7.5,7.5];
-  depth = (magnet_depth-top_space)*2;
+  depth = magnet_diameter-top_space*2;
   body_length = arm_length+front_space;
 
   union(){
@@ -103,8 +103,8 @@ module arm_segment(arm_length = 100, thickness = 3, wire_in_offset = 25, end_ser
 //Make tube at back for cable management
 
 
-module base(base_radius = 50, base_height = 5, base_servo = default_data, servo_height = 30, servo_off_center = 0, thickness = 3){
-  base_res = 8;
+module base(base_radius = 50, base_height = 5, base_servo = default_data, turn_servo = default_data, servo_height = 30, servo_off_center = 0, thickness = 3, base_wire_offset = 40){
+  base_res = 256;
   $fn = base_res;
 
   top_space = 0.25;
@@ -118,12 +118,12 @@ module base(base_radius = 50, base_height = 5, base_servo = default_data, servo_
   box_height = servo_height+abs(get_servo_bounding_box(base_servo)[0][0])+thickness;
   union(){
     //above base
-    translate([servo_off_center,0,base_height])
+    translate([servo_off_center,0,0])
     union(){
       translate([-get_servo_size(base_servo)[1],-width/2-thickness,box_height/2])
       rotate([90,-90,0])
       linear_extrude(1)
-      text("Base v0.3",valign = "center", halign = "center", size = depth/3);
+      text("Base v0.4",valign = "center", halign = "center", size = depth/3);
 
       difference(){
         //box container
@@ -144,7 +144,7 @@ module base(base_radius = 50, base_height = 5, base_servo = default_data, servo_
         tunnel_depth = abs(get_servo_wire_offset(base_servo)[2]+get_servo_box_offset(base_servo)[2]);
         translate([-tunnel_depth/2,0,wire_cross[2]/2])
         cube([tunnel_depth,wire_cross[1],wire_cross[2]],center = true);
-
+        
       }
       //servo
       translate([0,0,servo_height])
@@ -152,9 +152,50 @@ module base(base_radius = 50, base_height = 5, base_servo = default_data, servo_
       servo_box(base_servo);
     }
     //base_cylnder
-    rotate([0,0,180/base_res])
-    cylinder(h=base_height, r=base_radius, center=false);
+    difference(){
+      translate([0,0,-base_height])
+      rotate([0,0,180/base_res])
+      cylinder(h=base_height, r=base_radius, center=false);
+
+      translate([base_wire_offset-wire_cross[2]/2,0,-base_height/2])
+      cube([wire_cross[2],wire_cross[1],base_height*2], center = true);
+
+      translate([0,0,-base_height-0.01])
+      rotate([180,0,0])
+      servo_shaft(turn_servo[13], extend = 10);
+    }
+  } 
+}
+module base_cube(cube_height = 80, cube_length = 160, in_thickness = 10, turntable_radius = 60, turntable_height = 4, servo = default_data, wire_exit_ring_offset = 40){
+  tolerance = 0.25;
+  $fn = 256;
+union(){
+  translate([0,-cube_length/2,-cube_height/2])
+  rotate([90,0,0])
+  linear_extrude(2)
+  text("Cube Base v04", valign = "center", halign = "center", size = cube_height/4);
+    difference(){
+
+      translate([0,0,-cube_height/2])
+      cube([cube_length, cube_length, cube_height], center = true);
+      translate([in_thickness,0,-(cube_height)/2-turntable_height/2])
+      difference(){
+        cube([cube_length, cube_length-in_thickness*2,cube_height-in_thickness*2-turntable_height], center = true);
+        translate([-2*in_thickness,0,0])
+        cube([get_servo_size(servo)[0]-0.5,get_servo_size(servo)[1] ,cube_height-in_thickness*2], center = true);
+      }
+      translate([0,0,-in_thickness])
+      difference(){
+        cylinder(h=in_thickness*2, r=wire_exit_ring_offset, center=true);
+        //cylinder(h=in_thickness*2, r=wire_exit_ring_offset, center=true);
+      }
+      translate([0,0,-(turntable_height-tolerance)/2])
+      cylinder(h=turntable_height+tolerance, r=turntable_radius+tolerance*2,center = true);
+      translate([0,0,-turntable_height-tolerance])
+      servo_spacing(servo);
+      translate([servo[1],0,0])//shaft offset
+      cube([get_servo_size(servo)[0], get_servo_size(servo)[1], turntable_height*3], center = true);
+    }
   }
-
-
-} 
+  translate([0,0,-turntable_height-tolerance])  servo_box(servo);
+}
