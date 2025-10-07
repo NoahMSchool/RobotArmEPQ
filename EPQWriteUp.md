@@ -910,5 +910,13 @@ admin@raspberrypi:~/src/RaspberryPiEpq $ sudo systemctl status robot_server.serv
 Sep 27 22:13:03 raspberrypi systemd[1]: Started EPQ robot arm controller.
 
 ```
+## Printing Bigger base.
+I printed a bigger base as my smaller base was struggling so I thought I needed a bigger motor. There was also a small crack in the original base as I was trying to put a bigger screw in it. I learned that It is better to use smaller holes for the screws instead of bigger screws.
+
+`31/09/2025`
+
+## New Servo Motor
+
+I got the new servo motor and made a new servo data for it. It was acctually very similar to the SG90 I had exept was taller. My first print acctually fitted quite well. I then printed anouther one of my shaft test
 
 
