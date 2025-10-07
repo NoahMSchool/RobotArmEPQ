@@ -211,6 +211,13 @@ In order to do this I needed to:
 * connect the raspeberry pi to the same network as the computer
 * mount the raspberry pi drive on my mac using macFuse and SSHFS
 
+### Finding Raspberry Pi IP address
+
+The IP address of the raspberry pi could change so the following command is an easy way to find it from my mac
+`arp -a | grep raspberry`
+returns
+`raspberrypi.lan (192.168.86.37) at d8:3a:dd:66:99:5a on en0 ifscope [ethernet]`
+
 ### Enabling SSH
 SSH stands for secure shell which needs to be running on the raspberry pi so other computers can connect to it, I turned this on on the raspberry pi settings
 
@@ -840,7 +847,7 @@ I printed off the first
 
 `Date: 20/09/2025`
 
-In the morning I finished the base and changed the arm to fit with the servo shaft fittingthen I printed the 
+In the morning I finished the base and changed the arm to fit with the servo shaft fitting then I printed the 
 
 
 https://images-na.ssl-images-amazon.com/images/I/61jUf7Q-0uL.pdf
@@ -919,4 +926,22 @@ I printed a bigger base as my smaller base was struggling so I thought I needed 
 
 I got the new servo motor and made a new servo data for it. It was acctually very similar to the SG90 I had exept was taller. My first print acctually fitted quite well. I then printed anouther one of my shaft test
 
+`28/09/2025`
+## Printing and Designing
+
+When I was testing my arm with all the components the base was struggling to rotate. I was confused as my torque calculator expected it to work. I then learned that continuouse torque is different and I should multiply it by 2 or 3 to be safe.
+I then learned that you cannot rely on the 
+My old base broke, so I printed a new version with the bigger servo.
+
+I then improved my electromagnet module adding curves as an option as appose to he arm
+
+
+Learned about background processes
+tested new wires
+
+`07/10/2025`
+
+## Robot arm module
+
+I made a module that pieced all the components together into one
 

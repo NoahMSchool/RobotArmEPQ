@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Robot Arm API — Swagger UI</title>
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css">
+  <style>
+    body { margin: 0; }
+    #swagger { max-width: 1200px; margin: 0 auto; }
+  </style>
+</head>
+<body>
+  <div id="swagger"></div>
+
+  <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
+  <script>
+  const spec = {
+    "openapi": "3.0.3",
+    "info": {
+      "title": "Robot Arm API",
+      "version": "1.0.0",
+      "description": "Endpoints used to control Servos and magnets for the Robot arm."
+    },
+    "servers": [
+      { "url": "http://192.168.86.37:8080", "description": "Pico/Pi on LAN" },
+      { "url": "http://192.168.86.44:8080", "description": "Pico/Pi on LAN" }
+    ],
+    "tags": [
+      { "name": "control", "description": "Robot API Control" }
+    ],
+    "paths": {
+      "/magnet": {
+        "get": {
+          "tags" : ["control"],
+          "summary": "Toggle electromagnet",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "status",
+              "required": true,
+              "schema": { "type": "string", "enum": ["on","off"] },
+              "description": "Turn magnet on or off"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "ok": { "type": "boolean" },
+                      "status": { "type": "string", "enum": ["on","off"] }
+                    }
+                  },
+                  "examples": {
+                    "on": { "value": { "ok": true, "status": "on" } },
+                    "off": { "value": { "ok": true, "status": "off" } }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+
+      "/servos": {
+        "get": {
+          "tags" : ["control"],
+
+          "summary": "Set turntable, seg1 and seg2 servo target angles",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "turntable",
+              "required": true,
+              "schema": { "type": "number", "format": "float", "minimum": -180, "maximum": 180 },
+              "description": "Degrees for turntable base (e.g. -60)",
+              "example": 0
+            },
+            {
+              "in": "query",
+              "name": "seg_1",
+              "required": true,
+              "schema": { "type": "number", "format": "float", "minimum": -180, "maximum": 180 },
+              "description": "Degrees for first arm segment (e.g. -60)",
+              "example": 0
+            },
+            {
+              "in": "query",
+              "name": "seg_2",
+              "required": true,
+              "schema": { "type": "number", "format": "float", "minimum": -180, "maximum": 180 },
+              "description": "Degrees for second arm segment (e.g. 80)",
+              "example": 0
+            }
+            
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "ok": { "type": "boolean" },
+                      "targets": {
+                        "type": "object",
+                        "properties": {
+                          "base_angle": { "type": "number" },
+                          "middle_angle": { "type": "number" }
+                        }
+                      },
+                      "name": { "type": "string" }
+                    }
+                  },
+                  "example": {
+                    "ok": true,
+                    "targets": { "base_angle": -60, "middle_angle": 80 },
+                    "name": "bob&cat"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request (invalid parameter)"
+            }
+          }
+        }
+      }
+    }
+  };
+
+  // --- Render Swagger UI ---
+  SwaggerUIBundle({
+    spec,
+    dom_id: "#swagger",
+    deepLinking: true,
+    tryItOutEnabled: true,
+    persistAuthorization: true
+  });
+  </script>
+</body>
+</html>
+
