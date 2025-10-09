@@ -945,3 +945,12 @@ tested new wires
 
 I made a module that pieced all the components together into one
 
+## Programming IK
+
+I initially thought the base would be easy but I first had to understand the different quadrants used in 3D and godot. Godot takes -Z as forward +X as right and +y as up
+The four quadrants used were 
+
+There are also two arctan functions in gdscript. The atan2 will output the correct quadrant and atan will not.
+Because I want slighly different functinallity if it is in the back two quadrants then I would flip the angle in y=-z.
+Although I am doing this once per frame, it is only one entitiy so I am not worried about missing out on the optimisations.
+
