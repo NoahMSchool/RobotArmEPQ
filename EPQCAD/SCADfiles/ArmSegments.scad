@@ -2,7 +2,7 @@ include <component_data.scad>
 use <servo.scad>
 
 module effector_segment(arm_length = 100, beam_diameter = 2, start_servo = default_data, wire_in_offset = 15, width = 18, magnet_diameter= 20){
-  vnum = "v0.4";
+  vnum = "v0.5";
   top_space = 0.25; // sligtly put top below xy plane
   front_space = get_servo_shaft_radius(start_servo[13]);
   wire_cross = [7.5,7.5,7.5];
@@ -27,12 +27,12 @@ module effector_segment(arm_length = 100, beam_diameter = 2, start_servo = defau
       servo_shaft(start_servo[13]); // 13 is servos shaft data
       
       //beam hole
-      translate([-arm_length/2,0,-depth])
-      cylinder(h=depth, r=beam_diameter/2,center=false, $fn=20);
+      translate([-arm_length/2,0,-(depth+top_space*2)])
+      cylinder(h=depth+top_space*2, r=beam_diameter/2,center=false, $fn=20);
       //endservo spacing
     
       //wire tube
-      translate([0,0,-depth/2])
+      translate([wire_cross[0],0,-depth/2])
       cube([arm_length, 0,0]+wire_cross,center = true);
       //wire in
       translate([-arm_length/2+wire_in_offset,0,-depth/2])
@@ -49,7 +49,7 @@ module effector_segment(arm_length = 100, beam_diameter = 2, start_servo = defau
 }
 
 module arm_segment(arm_length = 100, thickness = 3, wire_in_offset = 25, end_servo = default_data, start_servo){
-  vnum = "v0.4";
+  vnum = "v0.5";
   servo_bounds = get_servo_bounding_box(end_servo);
   servo_size = get_servo_size(end_servo);
   top_space = 0.25; // sligtly put top below xy plane
@@ -80,9 +80,12 @@ module arm_segment(arm_length = 100, thickness = 3, wire_in_offset = 25, end_ser
       servo_spacing(end_servo);
 
       //wire in
-      wire_depth = (get_servo_wire_offset(end_servo)+get_servo_box_offset(end_servo))[0];
-      translate([wire_in_offset+servo_bounds[1][0],0,-wire_depth/2])
-      cube([wire_cross[2],wire_cross[1],wire_depth], center = true);
+      wire_depth = (get_servo_wire_offset(end_servo)+get_servo_box_offset(end_servo))[2];
+
+      echo(get_servo_wire_offset(end_servo));
+      echo(get_servo_box_offset(end_servo));
+      translate([wire_in_offset+servo_bounds[1][0],0,wire_depth/2])
+      cube([wire_cross[2],wire_cross[1],abs(wire_depth)], center = true);
       }
 
       //wire tube
@@ -187,7 +190,7 @@ union(){
       translate([0,0,-in_thickness])
       difference(){
         cylinder(h=in_thickness*2, r=wire_exit_ring_offset, center=true);
-        //cylinder(h=in_thickness*2, r=wire_exit_ring_offset, center=true);
+        //cylinder(h=in_thickness*2, r=wire_exit_ring_offset-10, center=true);
       }
       translate([0,0,-(turntable_height-tolerance)/2])
       cylinder(h=turntable_height+tolerance, r=turntable_radius+tolerance*2,center = true);
@@ -197,5 +200,15 @@ union(){
       cube([get_servo_size(servo)[0], get_servo_size(servo)[1], turntable_height*3], center = true);
     }
   }
-  translate([0,0,-turntable_height-tolerance])  servo_box(servo);
+  translate([0,0,-turntable_height-tolerance*2])
+  servo_box(servo);
+}
+
+module base_wall(wall_dims = [10,100,100]) {
+  led_diameter = 5;
+  difference(){
+    cube(wall_dims, center = true);
+    rotate([0,90,0])
+    cylinder(h=wall_dims[0]+0.1, r=led_diameter/2, center=true, $fn=32);
+  }
 }
