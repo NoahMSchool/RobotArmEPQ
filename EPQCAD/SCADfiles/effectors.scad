@@ -1,22 +1,19 @@
 function get_magnet_depth(handle_height) = handle_height-15;//assuming magnet height is 15
 
-module electromagnet_sphere(handle_height = 25, magnet_diameter = 20, beam_diameter = 5){
+module electromagnet_sphere(handle_height = 25, magnet_diameter = 20, beam_diameter = 5, case_radius = 15){
   //surface_height = 15;
   
-
-
   tolerance = 0.25;
   magnet_height = 15;
   wire_height = 10;
   wirehole_radius = 2;
   base_extrude = 4;
   magnet_radius = magnet_diameter/2;
-  case_radius = 15;
   magnet_surface_radius = 4;
   ball_radius = 6;
   ball_tolerance = 1.2;
 
-  $fn = 228;
+  $fn = 256;
 
   union(){    
     difference(){
@@ -35,9 +32,9 @@ module electromagnet_sphere(handle_height = 25, magnet_diameter = 20, beam_diame
         intersection(){
         translate([0,0,wire_height-wirehole_radius])
         cylinder(h=handle_height+beam_diameter-(wire_height-wirehole_radius), r=case_radius, center=false);
-        //translate([0,0,handle_height/2])
-        //rotate([0,90,0])
-        //cylinder(r = case_radius, h = case_radius*2, center = true);
+        translate([0,0,(handle_height+beam_diameter)/2])
+        rotate([0,90,0])
+        cylinder(r = case_radius, h = case_radius*2, center = true);
         }
         //inner
         translate([0,0,wire_height-wirehole_radius-0.01])
