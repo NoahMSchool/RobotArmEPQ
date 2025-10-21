@@ -28,6 +28,8 @@ This meant when printing the final product my prototypes were wildly different.
 
 ## Electronics
 
+
+
 ## Godot Simulation
 
 My primary control method is my godot simulation. This is where I wrote the code for IK and I have a matching preview of the arm. I made http requests from godot 
@@ -41,8 +43,20 @@ If I had to do the project again or while continuing it there would be quite a f
 However I found that with a project like this whenever you try something different it would open for even more ideas and improvements that I want to do. This made it is impossible to perfect and mark it as finished.
 I would have made more visual drawings or physical models of the project and plan before spending time making modular models in the CAD software.
 
+## References
+
 OpenSCAD tutorial for Project Enclosure
 https://www.youtube.com/watch?v=lPgLZgnbREk
 
 Openscad Cheat Sheet
 https://openscad.org/cheatsheet/
+
+Sparkfun Servos Explained
+https://www.sparkfun.com/servos
+
+Sparkfun Hobby Servos
+https://learn.sparkfun.com/tutorials/hobby-servo-tutorial/all
+
+Torque for servo motors
+https://automaticaddison.com/how-to-determine-what-torque-you-need-for-your-servo-motors/
+
