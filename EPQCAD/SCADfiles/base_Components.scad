@@ -1,111 +1,7 @@
 include <component_data.scad>
 use <servo.scad>
 
-module effector_segment(arm_length = 100, beam_diameter = 2, start_servo = default_data, wire_in_offset = 15, width = 18, magnet_diameter= 20){
-  vnum = "v0.5";
-  top_space = 0.25; // sligtly put top below xy plane
-  front_space = get_servo_shaft_radius(start_servo[13]);
-  wire_cross = [7.5,7.5,7.5];
-  depth = magnet_diameter-top_space*2;
-  body_length = arm_length+front_space;
-  union(){
-    difference(){
-      //main body
-      union(){
-        translate([0,0,-depth/2-top_space])
-        translate([front_space/2,0,0])
-        cube([body_length,width,depth], center = true);
-      
-        translate([-arm_length/2,0,-(depth)/2-top_space])
-        cylinder(h=depth, r=width/2, center=true);
-
-      }
-
-      //shaft hole
-      translate([arm_length/2,0,0])
-      servo_shaft(start_servo[13]); // 13 is servos shaft data
-      
-      //beam hole
-      translate([-arm_length/2,0,-(depth+top_space*2)])
-      cylinder(h=depth+top_space*2, r=beam_diameter/2,center=false);
-      //endservo spacing
-    
-      //wire tube
-      translate([wire_cross[0],0,-depth/2])
-      cube([arm_length, 0,0]+wire_cross,center = true);
-      //wire in
-      translate([-arm_length/2+wire_in_offset,0,-depth/2])
-      cube([wire_cross[0], wire_cross[1], 2*depth], center = true);
-    
-    }
-  
-  translate([0,-width/2,-depth/2])
-  rotate([90,0,0])
-  linear_extrude(height = 1)
-  text(str("EffectorSegment ", vnum), size = depth/3, halign = "center", valign = "center");
-
-}
-}
-
-module arm_segment(arm_length = 100, thickness = 3, wire_in_offset = 25, end_servo = default_data, start_servo){
-  vnum = "v0.5";
-  servo_bounds = get_servo_bounding_box(end_servo);
-  servo_size = get_servo_size(end_servo);
-  top_space = 0.25; // sligtly put top below xy plane
-  front_space = get_servo_shaft_radius(start_servo[13]);
-  back_space = abs(servo_bounds[0][0]);
-
-
-  wire_cross = get_servo_wire_cross(end_servo);
-
-  width = servo_size[1]+thickness;
-  depth = servo_size[2]+thickness;
-  body_length = arm_length+front_space+back_space+thickness*2;
-
-  union(){
-    difference(){
-      //main body
-      translate([0,0,-depth/2-top_space/2])
-      translate([(front_space-back_space)/2,0,0])
-      cube([body_length,width,depth-top_space], center = true);
-      
-      //shaft hole
-      translate([arm_length/2,0,0])
-      servo_shaft(start_servo[13]); // 13 is servos shaft data
-      
-      //endservo spacing
-      translate([-arm_length/2,0,0])
-      union(){
-      servo_spacing(end_servo);
-
-      //wire in
-      wire_depth = (get_servo_wire_offset(end_servo)+get_servo_box_offset(end_servo))[2];
-
-      echo(get_servo_wire_offset(end_servo));
-      echo(get_servo_box_offset(end_servo));
-      translate([wire_in_offset+servo_bounds[1][0],0,wire_depth/2])
-      cube([wire_cross[2],wire_cross[1],abs(wire_depth)], center = true);
-      }
-
-      //wire tube
-      translate(get_servo_wire_offset(end_servo)+get_servo_box_offset(end_servo))
-      cube([arm_length, 0,0]+wire_cross,center = true);
-    }
-    //endservo
-    translate(-[arm_length/2,0,0])
-    servo_box(end_servo);
-  }
-  translate([0,-width/2,-depth/2])
-  rotate([90,0,0])
-  linear_extrude(height = 1)
-  text(str("ArmSegment ", vnum), size = depth/3, halign = "center", valign = "center");
-
-}
-//cut off ends diagonally for wires and aesthetics
-//Make tube at back for cable management
-
-
-module base(base_radius = 50, base_height = 5, base_servo = default_data, turn_servo = default_data, servo_height = 30, servo_off_center = 0, thickness = 3, base_wire_offset = 40, base_res = 6){
+module base_seg(base_radius = 50, base_height = 5, base_servo = default_data, turn_servo = default_data, servo_height = 30, servo_off_center = 0, thickness = 3, base_wire_offset = 40, base_res = 6){
   $fn = base_res;
 
   top_space = 0.25;
@@ -124,8 +20,8 @@ module base(base_radius = 50, base_height = 5, base_servo = default_data, turn_s
       translate([-get_servo_size(base_servo)[1],-width/2-thickness,box_height/2])
       rotate([90,-90,0])
       linear_extrude(1)
-      text("Base v0.4",valign = "center", halign = "center", size = depth/3);
-
+      //text("Base v0.4",valign = "center", halign = "center", size = depth/3);
+      text("EPQ",valign = "center", halign = "center", size = depth/3);
       difference(){
         //box container
         translate([-(depth+top_space+thickness)/2,0,box_height/2])
@@ -163,13 +59,14 @@ module base(base_radius = 50, base_height = 5, base_servo = default_data, turn_s
 
       translate([0,0,-base_height-0.01])
       rotate([180,0,0])
-      servo_shaft(turn_servo[13], extend = 10);
+      servo_shaft(turn_servo[13], extend = 2);
     }
   } 
 }
+
 module base_cube(cube_height = 80, cube_length = 160, in_thickness = 10, turntable_radius = 60, turntable_height = 4, servo = default_data, wire_exit_ring_offset = 40){
   tolerance = 0.25;
-  //$fn = 256;
+  $fn = 128;
 union(){
   translate([0,-cube_length/2,-cube_height/2])
   rotate([90,0,0])
@@ -201,6 +98,15 @@ union(){
   }
   translate([0,0,-turntable_height-tolerance*2])
   servo_box(servo);
+}
+
+module base_top(top_height = 4, cube_length = 160, wire_exit_ring_offset = 60){
+  translate([0,0,top_height/2])
+  difference(){
+    cube([cube_length, cube_length, top_height], center = true);  
+    cylinder(r = wire_exit_ring_offset, h = 2*top_height, center = true);
+  }
+  
 }
 
 module base_wall(wall_dims = [10,100,100]) {

@@ -954,3 +954,6 @@ There are also two arctan functions in gdscript. The atan2 will output the corre
 Because I want slighly different functinallity if it is in the back two quadrants then I would flip the angle in y=-z.
 Although I am doing this once per frame, it is only one entitiy so I am not worried about missing out on the optimisations.
 
+`14/10/2025`
+
+I tried to figure out the best way to store the servos rotation, after using the program to control my arm I realised the positions were off, I added a rotation offset parameter that is only applied right at the end when rotating the servos. I also learned about the right hand rule of rotations which helped my apply this to 3D space.
