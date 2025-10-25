@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <title>Robot Arm API — Swagger UI</title>
-  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css">
+  <link rel="stylesheet" href="swagger-ui-dist/swagger-ui.css">
   <style>
     body { margin: 0; }
     #swagger { max-width: 1200px; margin: 0 auto; }
@@ -12,7 +12,7 @@
 <body>
   <div id="swagger"></div>
 
-  <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
+  <script src="swagger-ui-dist/swagger-ui-bundle.js"></script>
   <script>
   const spec = {
     "openapi": "3.0.3",
@@ -22,7 +22,7 @@
       "description": "Endpoints used to control Servos and magnets for the Robot arm."
     },
     "servers": [
-      { "url": "http://192.168.86.37:8080", "description": "RoccoNet" },
+      { "url": "http://raspberrypi.local:8080", "description": "RoccoNet" },
       { "url": "http://172.20.10.6:8080", "description": "noahiphone hotspot network" }
     ],
     "tags": [
