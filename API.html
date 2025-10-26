@@ -14,134 +14,112 @@
 
   <script src="swagger-ui-dist/swagger-ui-bundle.js"></script>
   <script>
-  const spec = {
-    "openapi": "3.0.3",
-    "info": {
-      "title": "Robot Arm API",
-      "version": "1.0.0",
-      "description": "Endpoints used to control Servos and magnets for the Robot arm."
-    },
-    "servers": [
-      { "url": "http://raspberrypi.local:8080", "description": "RoccoNet" },
-      { "url": "http://172.20.10.6:8080", "description": "noahiphone hotspot network" }
-    ],
-    "tags": [
-      { "name": "control", "description": "Robot API Control" }
-    ],
-    "paths": {
-      "/magnet": {
-        "get": {
-          "tags" : ["control"],
-          "summary": "Toggle electromagnet",
-          "parameters": [
-            {
-              "in": "query",
-              "name": "status",
-              "required": true,
-              "schema": { "type": "string", "enum": ["on","off"] },
-              "description": "Turn magnet on or off"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "OK",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "ok": { "type": "boolean" },
-                      "status": { "type": "string", "enum": ["on","off"] }
-                    }
-                  },
-                  "examples": {
-                    "on": { "value": { "ok": true, "status": "on" } },
-                    "off": { "value": { "ok": true, "status": "off" } }
+const spec = {
+  openapi: "3.0.3",
+  info: {
+    title: "Robot Arm API",
+    version: "1.0.0",
+    description: "Endpoints used to control Servos and magnets for the Robot arm."
+  },
+  servers: [
+    { url: "http://raspberrypi.local:8080", description: "RoccoNet" },
+    { url: "http://172.20.10.6:8080", description: "noahiphone hotspot network" }
+  ],
+  tags: [{ name: "control", description: "Robot API Control" }],
+  paths: {
+    "/magnet": {
+      get: {
+        tags: ["control"],
+        summary: "Toggle electromagnet",
+        parameters: [
+          {
+            in: "query",
+            name: "status",
+            required: true,
+            schema: { type: "string", enum: ["on", "off"] },
+            description: "Turn magnet on or off",
+            example: "on"
+          }
+        ],
+        responses: {
+          "200": {
+            description: "OK",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    ok: { type: "boolean" },
+                    message: { type: "string" }
                   }
+                },
+                examples: {
+                  on:  { value: { ok: true, message: "Magnet on" } },
+                  off: { value: { ok: true, message: "Magnet off" } }
                 }
               }
             }
           }
         }
-      },
+      }
+    },
 
-      "/servos": {
-        "get": {
-          "tags" : ["control"],
-
-          "summary": "Set turntable, seg1 and seg2 servo target angles",
-          "parameters": [
-            {
-              "in": "query",
-              "name": "turntable",
-              "required": true,
-              "schema": { "type": "number", "format": "float", "minimum": -180, "maximum": 180 },
-              "description": "Degrees for turntable base (e.g. -60)",
-              "example": 0
-            },
-            {
-              "in": "query",
-              "name": "seg_1",
-              "required": true,
-              "schema": { "type": "number", "format": "float", "minimum": -180, "maximum": 180 },
-              "description": "Degrees for first arm segment (e.g. -60)",
-              "example": 0
-            },
-            {
-              "in": "query",
-              "name": "seg_2",
-              "required": true,
-              "schema": { "type": "number", "format": "float", "minimum": -180, "maximum": 180 },
-              "description": "Degrees for second arm segment (e.g. 80)",
-              "example": 0
-            }
-            
-          ],
-          "responses": {
-            "200": {
-              "description": "OK",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "ok": { "type": "boolean" },
-                      "targets": {
-                        "type": "object",
-                        "properties": {
-                          "base_angle": { "type": "number" },
-                          "middle_angle": { "type": "number" }
-                        }
-                      },
-                      "name": { "type": "string" }
-                    }
-                  },
-                  "example": {
-                    "ok": true,
-                    "targets": { "base_angle": -60, "middle_angle": 80 },
-                    "name": "bob&cat"
+    "/servos": {
+      get: {
+        tags: ["control"],
+        summary: "Set turntable, seg1 and seg2 servo target angles",
+        parameters: [
+          { in: "query", name: "turntable", required: true,
+            schema: { type: "number", format: "float", minimum: -180, maximum: 180 }, example: 0 },
+          { in: "query", name: "seg_1", required: true,
+            schema: { type: "number", format: "float", minimum: -180, maximum: 180 }, example: 0 },
+          { in: "query", name: "seg_2", required: true,
+            schema: { type: "number", format: "float", minimum: -180, maximum: 180 }, example: 0 }
+        ],
+        responses: {
+          "200": {
+            description: "OK",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    ok: { type: "boolean" },
+                    turntable: { type: "number" },
+                    seg_1: { type: "number" },
+                    seg_2: { type: "number" }
                   }
-                }
+                },
+                example: { ok: true, turntable: 0, seg_1: 0, seg_2: 0 }
               }
-            },
-            "400": {
-              "description": "Bad request (invalid parameter)"
+            }
+          },
+          "400": { description: "Bad request (invalid parameter)" }
+        }
+      }
+    },
+
+    "/stop": {
+      get: {
+        tags: ["control"],
+        summary: "Stops WebServer",
+        responses: {
+          "200": {
+            description: "Server will shut down after responding",
+            content: {
+              "application/json": {
+                schema: { type: "object", properties: { ok: { type: "boolean" }, message: { type: "string" } } },
+                example: { ok: true, message: "Shutting down..." }
+              }
             }
           }
         }
       }
     }
-  };
-
-  // --- Render Swagger UI ---
-  SwaggerUIBundle({
-    spec,
-    dom_id: "#swagger",
-    deepLinking: true,
-    tryItOutEnabled: true,
-    persistAuthorization: true
-  });
-  </script>
+  }
+};
+SwaggerUIBundle({ spec, dom_id: "#swagger", deepLinking: true, tryItOutEnabled: true, persistAuthorization: true });
+</script>
 </body>
 </html>
 
