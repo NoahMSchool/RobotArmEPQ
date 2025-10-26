@@ -914,7 +914,8 @@ There would be a few improvements I could make from the pi code as I have not ye
 
 ## References
 
-Serv-Arm by Heartman - Thingiverse  
+#### Serv-Arm by Heartman - Thingiverse  
+https://www.thingiverse.com/thing:1684471
 
 ### Videos
 
@@ -933,7 +934,6 @@ https://www.youtube.com/watch?v=lPgLZgnbREk
 OpenSCAD introductions - MathCodePrint - youtube
 https://www.youtube.com/watch?v=oTCu2hCuqfg&list=PLkRx3bM9e3yDK0NlFz-GomPfkst1ofT5y&index=1 
 
-
 ### Documents
 
 OpenSCAD Cheat Sheet
@@ -942,34 +942,40 @@ https://openscad.org/cheatsheet/
 Raspberry Pi Pins
 https://www.theengineeringprojects.com/2021/03/what-is-raspberry-pi-4-pinout-specs-projects-datasheet.html
 
+SG90 servo datasheet - Imperial Collage London
+http://www.ee.ic.ac.uk/pcheung/teaching/DE1_EE/stores/sg90_datasheet.pdf
+
 ### Articles
 
-Sparkfun Servos Explained
+#### Sparkfun Servos Explained
 https://www.sparkfun.com/servos
 
-Sparkfun Hobby Servos
+#### Sparkfun Hobby Servos
 https://learn.sparkfun.com/tutorials/hobby-servo-tutorial/all
 
-Torque for servo motors
+#### Torque for servo motors
 https://automaticaddison.com/how-to-determine-what-torque-you-need-for-your-servo-motors/
 
-## Products
+### Products
 
 Ball Bearings - amazon
 https://www.amazon.co.uk/sourcing-map-Bearing-Stainless-Precision/dp/B07YKSD1SH/ref=sr_1_9?dib=eyJ2IjoiMSJ9.x0JxWxhUIVfokdMkT6AFg1PfWcp5vhWm6pB-xcVL5T3jWvmy3ctmrjqjrDzCC4BAPLv6hfJbZ6NTEl4qJf1x5e66pGc4qcgv6xCHjJRJUpLuSUz82j3x4v7KQM_oNGNClJmEPyWdqlznNTLS5BSy6S-Kahnmzskd34n-ECNHiXiqKjBqLEtiz5UGTwve7Plo2Gk38uowR5WP4DkxHGl7c4WHXDABHYBcIip6iL7_QYhOHwycBYs1FMS1AB6gFHloHrv-lTpuYaDuJUSrIYuFRxhZRPUkwE-BpLh9-0ntICI.EAJs3MCR7diZwUGhz4Ux-5wixyV0isM0azREpUpVmm0&dib_tag=se&keywords=steel%2Bball%2Bbearings&qid=1753303104&sr=8-9&th=1 
 
-sg90 servos - amazon
+sg90 servos - Miuzei amazon
+https://www.amazon.co.uk/Micro-Helicopter-Airplane-Remote-Control/dp/B07KPS9845/ref=sr_1_1_sspa?crid=120KBDJVI0OX7&dib=eyJ2IjoiMSJ9.ObBr3wesRgGIBtaUSZHZLSej-yTppx-Nm-TM2hmRUO45Qc0aOpG4rfF7VMrM9fAlIe9nXM0fIB4JgT8tYikfi4HsuRFOHknJELM6tU1ySwWF88qLgL4_iNtfIqASH9vqbo4aT896vW2cLTcg3V3-IKu54DX59AbXMM2AOBEVwqKlOYVCRiM5JADz8o2tipSCkTeRkYq5iQG9qJr09rtzqWgeaCK5m84LzhsWqBpNd9FVLEuPgW-Bn30wCusD7d4NMWe8pm0vRoVMjaesE0w2BTgJctz9_sUPxSgFk7KVkbQ.1eZUD4pFvjjgJDZodEbRQ5n0hsxWXING3svT-Rl1KWk&dib_tag=se&keywords=sg90%2Bservo&qid=1761495929&sprefix=sg90%2Bservo%2Caps%2C87&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1
 
-MG996R servos - Pihut
+#### MG996R servos - Pihut
 
-Electromagnet - Pihut
+https://thepihut.com/products/servo-motor-mg996r-high-torque-metal-gear?srsltid=AfmBOorv6jxMM8T7VpcyTgm5QU8NuffIEoWj4pkQ5HYwmZrIC5NOuWfb
 
-MG92B servos - PiHut
+#### Electromagnet - Pihut
+https://thepihut.com/products/5v-electromagnet-2-5-kg-holding-force
 
-Printer Filament - Amazon
+#### MG92B servos - PiHut
+https://thepihut.com/products/towerpro-servo-motor-mg92b-metal-gear?srsltid=AfmBOooLM_eJrakXMkz6deP7bFifsxFM3eVuTHgLAUna1u8Eq-MEEeAt
 
-3D printer
+#### 3D printer
 https://store.creality.com/uk/products/ender-3-v3-se-3d-printer?utm_source=google_ads&utm_medium=search&gad_source=1&gad_campaignid=20457631393&gclid=CjwKCAjwpOfHBhAxEiwAm1SwEizCBhxql9OVgwVVGWIWqnG4ORpuSTDXps5xMLeLPUJAa8kvGIMUkBoCg2wQAvD_BwE
 
-
+#### 3d printer fillament
 https://www.amazon.co.uk/Creality-Filament-Hyper-1-75mm-Printer/dp/B0DZVY6D7P/ref=sr_1_3_sspa?adgrpid=165940041753&dib=eyJ2IjoiMSJ9.e6z4Po0lBLNvCwhmKWz1n77iARjegYT-eLpV6E_lzkSbBt42HyYvaOMEDhhllKJIpjUPaktMjRX8jyo_MM5jOuAdJm-KI0cliACgu0SQXFbwHZ9iHR0EZbp6wxscXoRwNiK_d136pX_krr8NNrKoZPbespoTGT1i4kzE2DynxanN2zHUVPSg5Jg6dKPemcEYAiqmfS6sgHrjJdzpXyArn9SkEEPwMo2OOrjZ061QQJdz6Q3gSBHRmItfcHUpOdlcg2dBatYTaZ6NIuOgTr29vVhRcKoRCEOLZH6cQymToYU.ZFcRg9Sk1A4OoxVfldHV5XkXKITH-eqWRUG4IXw-neo&dib_tag=se&gad_source=1&hvadid=705523939616&hvdev=c&hvexpln=69&hvlocphy=9222618&hvnetw=g&hvocijid=16423848959267145223--&hvqmt=b&hvrand=16423848959267145223&hvtargid=kwd-911425806474&hydadcr=14781_2301072&keywords=creality%2Bfilaments&mcid=4cfe0e364bb73442b9cf9e6159ae0e50&qid=1761219310&sr=8-3-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1
