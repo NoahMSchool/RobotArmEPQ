@@ -1,4 +1,4 @@
-$fn = 16;
+//$fn = 16;
 include <component_data.scad>
 
 //function get_servo_sizes(servo_data) = [servo_data[0][0]+(servo_data[7]+servo_data[5]+servo_data[3])*2, servo_data[0][1]+servo_data[3]*2, servo_data[0][2]+servo_data[3]];
@@ -76,7 +76,7 @@ module servo_box(servo_data){
       cube([(thickness+screw_radius+screw_offset)*2,0,0] + get_servo_wire_cross(servo_data), true);
       
       //remove screws
-      $fn = 32;
+      //$fn = 32;
       if (screw_count == 1){
         translate([-(screw_offset+size[0]/2),0,servo_base[2]/2])
         cylinder(screw_depth*2, screw_radius, screw_radius, center = true);
@@ -131,7 +131,7 @@ module servo_spacing(servo_data){
 }
 
 module servo_shaft(servo_shaft_data, extend = 50){
- $fn = 12;
+ //$fn = 12;
  teeth_depth = servo_shaft_data[3];
  teeth_count = servo_shaft_data[0];
  shaft_radius = servo_shaft_data[1]/2-teeth_depth;

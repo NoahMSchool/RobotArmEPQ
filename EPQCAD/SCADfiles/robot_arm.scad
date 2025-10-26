@@ -41,7 +41,7 @@ module robot_arm(end_seg_length = 120, middle_seg_length = 160, middle_seg_sevo 
     translate([0,0,base_seg_height+middle_seg_length+end_seg_length+magnet_pivot_offset])
     rotate([180,0,0])
     electromagnet_sphere(handle_height = magnet_pivot_offset, magnet_diameter = magnet_diameter, case_radius = magnet_case_radius, beam_diameter = beam_diameter);
-    cylinder(h=magnet_case_radius*2+0, r=(beam_diameter)/2-0.25, center=false); // fn
+    cylinder(h=magnet_case_radius*2+0, r=(beam_diameter)/2-0.4, center=false, $fn = 64); // fn
     }
 }
 
@@ -51,4 +51,4 @@ module robot_arm(end_seg_length = 120, middle_seg_length = 160, middle_seg_sevo 
 //robot_arm(end_seg_length = 120, middle_seg_length = 160, middle_seg_sevo = MG92B_data, base_seg_height = 50, base_seg_servo = MG996R_data, base_cube_height = 60, base_cube_length = 160, turntable_radius = 60, turntable_servo = MG996R_data);
 
 //v2
-robot_arm(end_seg_length = 120, middle_seg_length = 160, middle_seg_sevo = MG92B_data, base_seg_height = 40, base_seg_servo = MG996R_data, base_cube_height = 60, base_cube_length = 175, turntable_radius = 60, turntable_servo = MG996R_data);
+robot_arm(end_seg_length = 140, middle_seg_length = 160, middle_seg_sevo = MG92B_data, base_seg_height = 40, base_seg_servo = MG996R_data, base_cube_height = 60, base_cube_length = 175, turntable_radius = 60, turntable_servo = MG996R_data);

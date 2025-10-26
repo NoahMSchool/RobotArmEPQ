@@ -2,7 +2,8 @@ include <component_data.scad>
 use <servo.scad>
 
 module base_seg(base_radius = 50, base_height = 5, base_servo = default_data, turn_servo = default_data, servo_height = 30, servo_off_center = 0, thickness = 3, base_wire_offset = 40, base_res = 6){
-  $fn = base_res;
+  //$fn = base_res;
+  $fn = 128;
 
   top_space = 0.25;
   depth = abs(get_servo_bounding_box(base_servo)[0][2]);
@@ -21,7 +22,7 @@ module base_seg(base_radius = 50, base_height = 5, base_servo = default_data, tu
       rotate([90,-90,0])
       linear_extrude(1)
       //text("Base v0.4",valign = "center", halign = "center", size = depth/3);
-      text("EPQ",valign = "center", halign = "center", size = depth/3);
+      text("BaseSeg",valign = "center", halign = "center", size = depth/3);
       difference(){
         //box container
         translate([-(depth+top_space+thickness)/2,0,box_height/2])
@@ -59,7 +60,7 @@ module base_seg(base_radius = 50, base_height = 5, base_servo = default_data, tu
 
       translate([0,0,-base_height-0.01])
       rotate([180,0,0])
-      servo_shaft(turn_servo[13], extend = 2);
+      servo_shaft(turn_servo[13], extend = 3);
     }
   } 
 }
@@ -100,11 +101,12 @@ union(){
   servo_box(servo);
 }
 
-module base_top(top_height = 4, cube_length = 160, wire_exit_ring_offset = 60){
+module base_top(top_height = 4, cube_length = 160, turntable_radius = 640, wire_exit_ring_offset = 60){
   translate([0,0,top_height/2])
   difference(){
     cube([cube_length, cube_length, top_height], center = true);  
     cylinder(r = wire_exit_ring_offset, h = 2*top_height, center = true);
+    cylinder(h=1, r=1, center=false, $fn=20);
   }
   
 }
