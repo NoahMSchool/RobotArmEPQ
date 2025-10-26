@@ -95,6 +95,9 @@ I got it to work by increasing the first layer height.
 Once the servos came I then assembled the arm with screws.
 I continued over the next few days while I also worked on electronics
 
+![IMG_1286](https://github.com/user-attachments/assets/0e6dd1ec-8489-47a2-88db-678664c6d7d8)
+
+
 ## Arm Electronics
 `01/08/2025` 
 
@@ -155,6 +158,7 @@ ads = ADS.ADS1115(i2c,address=0x48)
 pot = AnalogIn(ads, ADS.P0)
 print(pot.voltage, v)
 ```
+![IMG_0132 2](https://github.com/user-attachments/assets/10b7f24c-136d-4732-a728-89170e02dd37)
 
 
 ## 3D Printing First Attempt:
@@ -351,6 +355,8 @@ cylinder(h=10, r1=1, r2 = 3);
 } 
 ```
 For the next few days I continued practicing making shapes and learning the basics of OpenSCAD using the linked video tutorials, the cheat sheet, and Google Gemini while practicing. 
+<img width="725" height="621" alt="image" src="https://github.com/user-attachments/assets/eb75b803-7f16-4662-ba40-da3b08308788" />
+<img width="484" height="453" alt="image" src="https://github.com/user-attachments/assets/769e7dbb-a8cb-48c6-be3e-6c26d44a0c53" />
 
 ```
 `19/07/2025`
@@ -437,6 +443,7 @@ for segment in reversed(arm):
   weight += segment[3]*g
   distance += segment[1]
 ```
+<img width="981" height="328" alt="image" src="https://github.com/user-attachments/assets/c2e8c2ae-7531-423b-a825-a1748c86d628" />
 
 
 ## Blocks of code
@@ -607,10 +614,7 @@ function get_servo_offset(servo_data) = [servo_data[1],0,-(servo_data[0][2]+serv
 function get_servo_bounding_box(size, servo_offset) = [[size[0]/2+servo_offset[0],size[1]/2+servo_offset[1],size[2]/2+servo_offset[2]], [-size[0]/2+servo_offset[0],-size[1]/2+servo_offset[1],-size[2]/2+servo_offset[2]]];
 
 ```
-
-Add Image here of bounding box
-
-
+<img width="812" height="711" alt="Bounding Box" src="https://github.com/user-attachments/assets/08d9c431-c690-419c-a9a5-a1b40e3895f2" />
 
 `Date: 07/09/2025`
 
