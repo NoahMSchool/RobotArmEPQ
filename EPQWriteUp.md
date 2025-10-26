@@ -1,9 +1,9 @@
-# EPQ WriteUp
+ # EPQ WriteUp
 <br>
 
 ## Brainstorming Ideas 
 
-`11/01/2024` 
+`11/01/2024`
 
 ### Subjects : 
 
@@ -39,7 +39,7 @@ Programable Robot Arm,	Robot Lego Sorter
 Researching robot arms 
 
 
-`11/15/2024`
+`15/11/2024`
 
 ## Robot Arm Research
 
@@ -60,7 +60,7 @@ I had to figure out which types of components and models of components to use.
 
 For the microcontroller I wanted to use raspberry pi. After some research I learned about the different types of motors and learned servo motors are the best for an arm. 
 
-`11/22/2024`
+`22/11/2024`
 ## Deciding on project scope
 
 I will use a custom 3D printed Skeleton  
@@ -73,7 +73,7 @@ I could then make it sort objects by color such as Lego or fruit
 
 ## Making Pre-Designed robot arm 
 
-`11/25/2024` 
+`25/11/2024` 
 ## Finding Premade Model
 I found a model of a robot arm online that I 3D printed.
 
@@ -337,108 +337,51 @@ I tried to learn freecad for a week I followed some tutorials
 After trying to learn FreeCad for a week I was still struggling. I decided to try to install OpenSCAD which is a CAD software for programmers. This lead me to learn more about the command line as I had to install it through homebrew. 
 
 
-
-`05/08/2025`
-
- 
-
+`05/07/2025`
+```
 $fn = 32; 
-
-  
-
 rotate(a=90, v=[0,1,0]) 
-
 sphere(5); 
-
 $fn = 16; 
-
 for (i = [0:30:330]){ 
-
 echo(i) 
-
 rotate(a=i,v=[1,0,0]) 
-
 translate([0,0,5]) 
-
 cylinder(h=10, r1=1, r2 = 3); 
-
 } 
-
-Move to a markdown Project 
-
- 
-
+```
 For the next few days I continued practicing making shapes and learning the basics of OpenSCAD using the linked video tutorials, the cheat sheet, and Google Gemini while practicing. 
 
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
+```
+`19/07/2025`
+## Servo module
 
 I finally built a servo model 
 
-I started with a base and used boolean operations to  
-
+I started with a base and used boolean operations to  subtract the volume needed to house the servos
 My design is very flexible and allows for different servo shapes, thicknesses, wire exits, screw sizes, offset and more  allowing it to be adapted to many different servos 
 
- 
-
 I first adapted it to a SG90 servo 
-
- 
 
 This involved lots of reprinting and adjusting my exposed parameters until it fit perfectly. 
 
 My first attempt was supprisingly close and it already fit quite well. However the screws did not fit or line up, parts were to loose and I realised there was a gap in the bottom. 
-
 In total I did 8 attempts before I perfected it. 
-
 I also realised some improvements in my code that would mean it is easier to adapt in future. (mostly changing how the offsets rely on each other. 
-
 The idea is I can instantiate this as a reusable module as a part of the other larger components of the arm 
-
- 
-
 I next had to finalise the components I was going to use. 
-
 The choice of servo motors was quite straightforward as there was little and simple to choose from options. 
 
- 
-
+`26/06/2025`
+## Electromagnet Module
 With the electromagnet It required more research. 
 
 I was initially unsure what I needed. I started with a push pull solenoid before realising this was not right.  
 
 I eventually found a small electromagnet that would work. It had a holding force of 2.5kg which I initially thought was extreamly overkill as it needed to carry 20g spheres however I learned that the holding force is not the same as the force to pick something to pick something up it should be divided by a factor of 5 or 10 and also the fact that my objects are spherical not flat means there is less surface area to attract meaning that this electromagnetwas just right 
-
  
-
- 
-
+I used the cheat sheet again
 https://openscad.org/cheatsheet/index.html?version=2021.01 
-
-https://www.youtube.com/watch?v=oTCu2hCuqfg&list=PLkRx3bM9e3yDK0NlFz-GomPfkst1ofT5y&index=1 
-
-
-
- 
-
- 
 
 https://www.amazon.co.uk/yusvwkj-Helicopter-Airplane-Mechanical-Waterproof/dp/B08XHWCS1R/ref=sr_1_1_sspa?crid=KS51G24JRPD4&dib=eyJ2IjoiMSJ9.D-t4hKDeuOxvcXYG0oVDMS4PIL1gT3dLHffNDWqnEUJ1A2NBkZMdj5Kr-koS38nLJKwShqtwl2WXgHJfu3PeNJBIIwZFLhuKPJDnGCIm2ipysHmIkWDIP7Wnr7tV_n-WiI6gArwDKpKfewKgq-g8h2rfAem2fEudF2VxZtQaQc6vo2ZL1reB8NrHKpiy8rintHqXiT1ss5fRwBwMZKA1hLSKk0DAFGhNyBIFCsJZaX_x1xqykF9Dw_8SM2xDTUKA1EzhZgiz6SkV36B3ko_4HlJRSkbU82LijA3JNwiZ1IU.25FR426NNNdaDipbuuIdED69Gkc39LVB98uAxpmO8lg&dib_tag=se&keywords=towerpro%2Bservo%2Bmotor%2B-%2Bmg996r%2B360%2Bmetal%2Bgear&qid=1752356386&sprefix=MG996R%2Btower%2Caps%2C70&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1 
 
@@ -467,22 +410,6 @@ https://thepihut.com/products/servo-motor-mg996r-high-torque-metal-gear?srsltid=
 ### Ball Bearings 
 
 https://www.amazon.co.uk/sourcing-map-Bearing-Stainless-Precision/dp/B07YKSD1SH/ref=sr_1_9?dib=eyJ2IjoiMSJ9.x0JxWxhUIVfokdMkT6AFg1PfWcp5vhWm6pB-xcVL5T3jWvmy3ctmrjqjrDzCC4BAPLv6hfJbZ6NTEl4qJf1x5e66pGc4qcgv6xCHjJRJUpLuSUz82j3x4v7KQM_oNGNClJmEPyWdqlznNTLS5BSy6S-Kahnmzskd34n-ECNHiXiqKjBqLEtiz5UGTwve7Plo2Gk38uowR5WP4DkxHGl7c4WHXDABHYBcIip6iL7_QYhOHwycBYs1FMS1AB6gFHloHrv-lTpuYaDuJUSrIYuFRxhZRPUkwE-BpLh9-0ntICI.EAJs3MCR7diZwUGhz4Ux-5wixyV0isM0azREpUpVmm0&dib_tag=se&keywords=steel%2Bball%2Bbearings&qid=1753303104&sr=8-9&th=1 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 `Date: 14/08/2025`
 
@@ -899,7 +826,6 @@ I went through 3 iterations before I got one that worked well
 ## AutoStarting Web Server
 
 ```
-
 admin@raspberrypi:~/src/RaspberryPiEpq $ sudo systemctl daemon-reload
 admin@raspberrypi:~/src/RaspberryPiEpq $ sudo systemctl enable robot_server.service
 Created symlink /etc/systemd/system/multi-user.target.wants/robot_server.service → /etc/systemd/system/robot_server.service.
@@ -940,11 +866,12 @@ Learned about background processes
 tested new wires
 
 `07/10/2025`
-
 ## Robot arm module
 
 I made a module that pieced all the components together into one
 
+
+`07/10/2025`
 ## Programming IK
 
 I initially thought the base would be easy but I first had to understand the different quadrants used in 3D and godot. Godot takes -Z as forward +X as right and +y as up
@@ -957,3 +884,92 @@ Although I am doing this once per frame, it is only one entitiy so I am not worr
 `14/10/2025`
 
 I tried to figure out the best way to store the servos rotation, after using the program to control my arm I realised the positions were off, I added a rotation offset parameter that is only applied right at the end when rotating the servos. I also learned about the right hand rule of rotations which helped my apply this to 3D space.
+
+`07/10/2025`
+
+### Constraining Target
+
+I needed to stop the target from going to places it could not acctually reach. First I did this by constraining the pointer, then I did it in the IK code checking if it is solvable.
+At the end I did it with a mix of both. 
+
+`07/10/2025`
+### Fixing IK above target
+
+My IK was working well below the origin but it wasnt working if the target was abobe the origin
+After debugging I figured out the atan function I was using was picking up the wrong angle. I used the atan function which adjusts the angle based on which quadrant it is in.
+It was working well after this.
+`14/10/25`
+## Calabrating IK to arm from godot
+
+I had to match the angles that godot would output to the angles required by the servo.
+as the servos were facing opposite directions anticlockwise, which I was taking as the positive direction would be flipped.
+I thought the neatest solution was to just send a negative for the one arm segment  in godot.
+I tested it one segment/servo at a time as it would be easier to debug.
+By the end it was working well from godot.
+There would be a few improvements I could make from the pi code as I have not yet calabrated the new servos.
+
+`15/10/25`
+## Calabrating IK to arm
+
+
+## References
+
+Serv-Arm by Heartman - Thingiverse  
+
+### Videos
+
+Jelle Vermandere Big Robot Arm - youtube
+https://www.youtube.com/watch?v=u5k2ewa1_is 
+
+Jelle Vermandere Mini Robot Arm - youtube
+https://www.youtube.com/watch?v=u5k2ewa1_is 
+
+Jelle Vermandere Micro Robot Arm - youtube
+https://www.youtube.com/watch?v=u5k2ewa1_is 
+
+OpenSCAD tutorial for Project Enclosure - MathCodePrint - youtube
+https://www.youtube.com/watch?v=lPgLZgnbREk
+
+OpenSCAD introductions - MathCodePrint - youtube
+https://www.youtube.com/watch?v=oTCu2hCuqfg&list=PLkRx3bM9e3yDK0NlFz-GomPfkst1ofT5y&index=1 
+
+
+### Documents
+
+OpenSCAD Cheat Sheet
+https://openscad.org/cheatsheet/
+
+Raspberry Pi Pins
+https://www.theengineeringprojects.com/2021/03/what-is-raspberry-pi-4-pinout-specs-projects-datasheet.html
+
+### Articles
+
+Sparkfun Servos Explained
+https://www.sparkfun.com/servos
+
+Sparkfun Hobby Servos
+https://learn.sparkfun.com/tutorials/hobby-servo-tutorial/all
+
+Torque for servo motors
+https://automaticaddison.com/how-to-determine-what-torque-you-need-for-your-servo-motors/
+
+## Products
+
+Ball Bearings - amazon
+https://www.amazon.co.uk/sourcing-map-Bearing-Stainless-Precision/dp/B07YKSD1SH/ref=sr_1_9?dib=eyJ2IjoiMSJ9.x0JxWxhUIVfokdMkT6AFg1PfWcp5vhWm6pB-xcVL5T3jWvmy3ctmrjqjrDzCC4BAPLv6hfJbZ6NTEl4qJf1x5e66pGc4qcgv6xCHjJRJUpLuSUz82j3x4v7KQM_oNGNClJmEPyWdqlznNTLS5BSy6S-Kahnmzskd34n-ECNHiXiqKjBqLEtiz5UGTwve7Plo2Gk38uowR5WP4DkxHGl7c4WHXDABHYBcIip6iL7_QYhOHwycBYs1FMS1AB6gFHloHrv-lTpuYaDuJUSrIYuFRxhZRPUkwE-BpLh9-0ntICI.EAJs3MCR7diZwUGhz4Ux-5wixyV0isM0azREpUpVmm0&dib_tag=se&keywords=steel%2Bball%2Bbearings&qid=1753303104&sr=8-9&th=1 
+
+sg90 servos - amazon
+
+MG996R servos - Pihut
+
+Electromagnet - Pihut
+
+MG92B servos - PiHut
+
+Printer Filament - Amazon
+
+3D printer
+https://store.creality.com/uk/products/ender-3-v3-se-3d-printer?utm_source=google_ads&utm_medium=search&gad_source=1&gad_campaignid=20457631393&gclid=CjwKCAjwpOfHBhAxEiwAm1SwEizCBhxql9OVgwVVGWIWqnG4ORpuSTDXps5xMLeLPUJAa8kvGIMUkBoCg2wQAvD_BwE
+
+
+https://www.amazon.co.uk/Creality-Filament-Hyper-1-75mm-Printer/dp/B0DZVY6D7P/ref=sr_1_3_sspa?adgrpid=165940041753&dib=eyJ2IjoiMSJ9.e6z4Po0lBLNvCwhmKWz1n77iARjegYT-eLpV6E_lzkSbBt42HyYvaOMEDhhllKJIpjUPaktMjRX8jyo_MM5jOuAdJm-KI0cliACgu0SQXFbwHZ9iHR0EZbp6wxscXoRwNiK_d136pX_krr8NNrKoZPbespoTGT1i4kzE2DynxanN2zHUVPSg5Jg6dKPemcEYAiqmfS6sgHrjJdzpXyArn9SkEEPwMo2OOrjZ061QQJdz6Q3gSBHRmItfcHUpOdlcg2dBatYTaZ6NIuOgTr29vVhRcKoRCEOLZH6cQymToYU.ZFcRg9Sk1A4OoxVfldHV5XkXKITH-eqWRUG4IXw-neo&dib_tag=se&gad_source=1&hvadid=705523939616&hvdev=c&hvexpln=69&hvlocphy=9222618&hvnetw=g&hvocijid=16423848959267145223--&hvqmt=b&hvrand=16423848959267145223&hvtargid=kwd-911425806474&hydadcr=14781_2301072&keywords=creality%2Bfilaments&mcid=4cfe0e364bb73442b9cf9e6159ae0e50&qid=1761219310&sr=8-3-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1

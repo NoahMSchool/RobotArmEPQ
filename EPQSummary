@@ -1,0 +1,62 @@
+# 1000 word summary
+
+## Introduction
+
+## Why I chose the project
+
+Initially my scope was larger than what was able to do. I reasonably quickly decided on making a robot arm but wanted to use AI to use it to sort objects by color. 
+Over time I realised I needed more control over the arm which lead me to have to design it myself and learn CAD.
+
+## What I learned
+
+Througout the project I learned about CAD Software, used a game engine in new ways, learned about raspberry pi and electronics while getting a deeper understanding of computers and the internet.
+
+## OpenSCAD
+
+Initially I was looking into various cad software. After trying to learn FreeCAD for a week making slow progress I decided to try OpenSCAD which is a CAD software for programmers. 
+This lead me to learn more about the command line as I had to install it through homebrew.
+I started off making some simpler shapes, a flower using loops and a project enclosure. After that I imedietly jumped into making a servo module which was a reusable component that let me house servo motors. 
+I also made a module that was the space required by the servos. OpenSCAD uses boolean operations to create geometry so the servo_spacing module was used aswell to subtract the volume needed by the servo motor.
+As I was using varaibles this allowed it to be flexible and fit different servos. Testing the models was importaint so througought the modeling process I was constantly printing and making adustments and improving older components.
+Next I made a arm_segment_module that used the servo modules and a new servo_shaft module that subtracted the volume that the servos shaft would fit in. (A servo shaft is the rotating part that components connect to.
+I worked on several more modules such as an electromagnet and all the arm segments.
+A problem I found with Openscad was its lack of support for classes or dictionaries forced me to find workarounds using lists that were not as elegant for storing data. If I had to redo it again i would use prefer to use SolidPython which is a python library that can render Openscad.
+
+My final module was a robot arm module that lets you preview and design a robot arm just changing lengths and swapping components by adjusting variables
+This meant my program is modular so can create variations of arms of different lengths and components with minimal effort. 
+This meant when printing the final product my prototypes were wildly different.
+
+## Electronics
+
+
+
+## Godot Simulation
+
+My primary control method is my godot simulation. This is where I wrote the code for IK and I have a matching preview of the arm. I made http requests from godot 
+
+
+## Problems I had on the way
+
+## What I would do if I had more time or had to redo it
+
+If I had to do the project again or while continuing it there would be quite a few things I would do differently. 
+However I found that with a project like this whenever you try something different it would open for even more ideas and improvements that I want to do. This made it is impossible to perfect and mark it as finished.
+I would have made more visual drawings or physical models of the project and plan before spending time making modular models in the CAD software.
+
+## References
+
+OpenSCAD tutorial for Project Enclosure
+https://www.youtube.com/watch?v=lPgLZgnbREk
+
+Openscad Cheat Sheet
+https://openscad.org/cheatsheet/
+
+Sparkfun Servos Explained
+https://www.sparkfun.com/servos
+
+Sparkfun Hobby Servos
+https://learn.sparkfun.com/tutorials/hobby-servo-tutorial/all
+
+Torque for servo motors
+https://automaticaddison.com/how-to-determine-what-torque-you-need-for-your-servo-motors/
+
