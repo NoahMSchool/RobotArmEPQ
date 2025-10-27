@@ -358,7 +358,7 @@ For the next few days I continued practicing making shapes and learning the basi
 <img width="725" height="621" alt="image" src="https://github.com/user-attachments/assets/eb75b803-7f16-4662-ba40-da3b08308788" />
 <img width="484" height="453" alt="image" src="https://github.com/user-attachments/assets/769e7dbb-a8cb-48c6-be3e-6c26d44a0c53" />
 
-```
+
 `19/07/2025`
 ## Servo module
 
@@ -391,7 +391,6 @@ https://openscad.org/cheatsheet/index.html?version=2021.01
 
 https://www.amazon.co.uk/yusvwkj-Helicopter-Airplane-Mechanical-Waterproof/dp/B08XHWCS1R/ref=sr_1_1_sspa?crid=KS51G24JRPD4&dib=eyJ2IjoiMSJ9.D-t4hKDeuOxvcXYG0oVDMS4PIL1gT3dLHffNDWqnEUJ1A2NBkZMdj5Kr-koS38nLJKwShqtwl2WXgHJfu3PeNJBIIwZFLhuKPJDnGCIm2ipysHmIkWDIP7Wnr7tV_n-WiI6gArwDKpKfewKgq-g8h2rfAem2fEudF2VxZtQaQc6vo2ZL1reB8NrHKpiy8rintHqXiT1ss5fRwBwMZKA1hLSKk0DAFGhNyBIFCsJZaX_x1xqykF9Dw_8SM2xDTUKA1EzhZgiz6SkV36B3ko_4HlJRSkbU82LijA3JNwiZ1IU.25FR426NNNdaDipbuuIdED69Gkc39LVB98uAxpmO8lg&dib_tag=se&keywords=towerpro%2Bservo%2Bmotor%2B-%2Bmg996r%2B360%2Bmetal%2Bgear&qid=1752356386&sprefix=MG996R%2Btower%2Caps%2C70&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1 
 
- 
 
 ## Choosing Components 
 
@@ -407,9 +406,7 @@ https://thepihut.com/products/mini-push-pull-solenoid-5v
 
  
 
-### Servos 
-
- 
+### Servos  
 
 https://thepihut.com/products/servo-motor-mg996r-high-torque-metal-gear?srsltid=ARcRdnpizNyWNPJ9_e3-erIbrxfITi6vHZ5jLgyimcGtfAZI8Y49Nv9W 
 
@@ -444,6 +441,7 @@ for segment in reversed(arm):
   distance += segment[1]
 ```
 <img width="981" height="328" alt="image" src="https://github.com/user-attachments/assets/c2e8c2ae-7531-423b-a825-a1748c86d628" />
+<img width="998" height="322" alt="image" src="https://github.com/user-attachments/assets/a0192e69-d4ae-4f50-a816-4a9a16e5ad03" />
 
 
 ## Blocks of code
@@ -504,6 +502,9 @@ I also made a separate module that returns the space used by a servo.
 This will be useful for boolean operations where I can remove the space in the arm to allow the servo to go in without overlapping with the arm.
 This also expanded outwards for the area that is required by the wires and the servo shaft
 
+<img width="992" height="772" alt="image" src="https://github.com/user-attachments/assets/bce52b1e-ba3d-4822-9994-766693695132" />
+
+
 ### Arm Cad
 
 I placed my servo in the arm module. I used the servo spacing module to subtract volume from the arm so I could replace it with the servo
@@ -518,6 +519,8 @@ I experemented using it with the raspberry pi power output pins. I also made som
 Later in the day I spent an hour and a half designing a modular CAD model in OpenSCAD for a design to house the electromagnet.
 This involved mostly cylnders aswell as using a sphere to make it fit the ball it needed to pick up.
 
+<img width="752" height="806" alt="image" src="https://github.com/user-attachments/assets/f0587b51-541c-46ce-8ef2-eb98b9b3a1d5" />
+![Uploading IMG_1596.jpeg…]()
 
 ### Spring Arm Godot
 
@@ -534,6 +537,7 @@ I am going to try to use a MG90D Tower Pro Servo motor at the base. As the servo
 As it is not full 360 rotation my solution is to have the arm bend over backwards to reach behind. The only problem is as my magnets position is not motorised I do not know how it will rotate over
 
 I started designing a turntable in OpenSCAD after I cleaned up some of my previous code
+<img width="466" height="812" alt="Screenshot 2025-09-20 at 10 08 07" src="https://github.com/user-attachments/assets/cd50cbb8-8e0d-4683-a966-a2e26768386e" />
 
 ### Measuring and fitting components
 
@@ -597,6 +601,7 @@ MG996R_data = [
 ];
 
 ```
+![IMG_0144](https://github.com/user-attachments/assets/3353f966-3b8b-470f-97dd-5f3a4bafc7ad)
 
 
 ## Helper Size/Offset Functions
@@ -623,10 +628,13 @@ function get_servo_bounding_box(size, servo_offset) = [[size[0]/2+servo_offset[0
 I wanted to start making the middle arm segment in OpenSCAD. I decided that I wanted to put the effector at the end of the previous arm link which would minimise torque requirements as you want to keep effectors as downstream as possible. And I would have the servo rotated so It would face downwards.
 I drew out my target in a sketch and then I moddled the arm in blender as reference. 
 
+<img width="325" height="617" alt="BlenderArmPrototype" src="https://github.com/user-attachments/assets/14d59a64-5342-492c-bf54-80ee565432bd" />
+
 Add image in sketch book
 Add image in blender
 
 I then started making it in OpenSCAD. I changed the arm width,depth, and length to be dependant on the end effector servo's required size. I usd the new bounding box and size helper functions for this. 
+<img width="672" height="184" alt="Screenshot 2025-09-06 at 21 50 29" src="https://github.com/user-attachments/assets/f74f8005-6ded-4570-badc-94038773091e" />
 
 ### Functional Programming Link
 I had adapted the bounding box to just take servo data by using 2 other functions. This is slightly more readable but is still not very readable. I was getting a bit worried about using openscad because its lack of classes and propper functions were making me doubt my programs maintainablity. 
@@ -653,8 +661,7 @@ I exposed a few more parameters to the arm function and improved some code overa
 One thing I am worried about is not being able to get the wires through the hole during assembly. 
 
 I am almost ready to print some arm samples. Before that I want to get the servo shaft hole at the base. As these parts are quite large I want to be able to test as many variables as possible at once. I might also start with shorter arms by changing the parameters.
-
-Insert Drawing
+<img width="672" height="184" alt="Screenshot 2025-09-06 at 21 50 29" src="https://github.com/user-attachments/assets/cf01867f-4ef9-4492-a579-629970e02bf8" />
 
 `Date: 12/09/2025`
 
@@ -678,6 +685,7 @@ I then added tubes for the screws to go through and added a few more features.
 Finlly I added it to a cube to test and then I added it to the servo.
 
 I think this might need quite a lot of tweeking to get right so I may print a block with quite a lot of different variations and see what fits because they are quite small.
+<img width="759" height="631" alt="Screenshot 2025-09-12 at 22 15 54" src="https://github.com/user-attachments/assets/5d268d3b-c948-4ec1-967a-5b5c156844b5" />
 
 `Date: 13/09/2025`
 
@@ -763,6 +771,9 @@ It used a loop to shift each servo shaft along the block and also the shaft radi
 I remeasured the shaft with my digital caliper around multiple orientiotions to get a rough Idea of the size. I made my program print 8 slightly different servos with slightly different radii starting slightly less than the measured value to slightly more. When I printed it I found that 5.2 mm was the sweet spot for the diameter which was acctually quite different to the 4.8mm I measured, maybe because of the gears. 
 It started loosing grip after time and wouldnt move the servo. I changed the gears and reprinted the module.
 
+![IMG_0145](https://github.com/user-attachments/assets/574e3c21-397b-469b-a632-1466bef4b341)
+
+
 `Date: 18/09/2025`
 
 I finished reprinting and testing with a name
@@ -773,7 +784,7 @@ I finished reprinting and testing with a name
 
 ## Finished Base
 
-I printed off the first
+I printed off the first base
 
 
 `Date: 20/09/2025`
@@ -786,6 +797,9 @@ https://images-na.ssl-images-amazon.com/images/I/61jUf7Q-0uL.pdf
 ## Assembling printed arm
 I assembled my first arm with the two printed components.
 I had to fit the screws and the wires in and it was reletively straightforward.
+
+![IMG_1839](https://github.com/user-attachments/assets/d93089be-0425-48dc-a506-b222fbb8257d)
+
 
 `22/09/25`
 ## Debugging servos
@@ -801,6 +815,42 @@ After rewiring by connecting the ground of the pi to the power supply ground. I 
 
 `24/09/25`
 ## Godot Editor Scripts and Parameters
+
+<img width="262" height="322" alt="image" src="https://github.com/user-attachments/assets/b770687d-8ece-4dde-8229-cb80d0b0b28d" />
+
+```
+@tool
+extends Node3D
+
+@export var arm_thickness : float = 0:
+	set(value):
+		arm_thickness = value
+		if Engine.is_editor_hint():
+			_rebuild()
+@export var arm_length : float = 0.1: 
+	set(value):
+		arm_length = value
+		if Engine.is_editor_hint():
+			_rebuild()
+@export var end_offset : float = 0.05:
+	set(value):
+		end_offset = value
+		if Engine.is_editor_hint():
+			_rebuild()
+@export var extra_length : float = 0:
+	set(value):
+		extra_length = value
+		if Engine.is_editor_hint():
+			_rebuild()
+	
+@export var color : Color: 
+	set(value):
+		color = value
+		if Engine.is_editor_hint():
+			_rebuild()
+@export var is_base : bool = false
+
+```
 
 I worked for a while on the Godot project, I wanted to get in a state where I could just send the HTTP requests to the web server on the Pi.
 I wanted to be able to preview the arm in the editor when I changed parameters. Since everything was being done in code I previously could not see what it was doing until I ran.
@@ -865,6 +915,7 @@ My old base broke, so I printed a new version with the bigger servo.
 
 I then improved my electromagnet module adding curves as an option as appose to he arm
 
+![IMG_1694](https://github.com/user-attachments/assets/ff950f97-ac7d-4260-9536-90a308cffcf0)
 
 Learned about background processes
 tested new wires
@@ -873,6 +924,7 @@ tested new wires
 ## Robot arm module
 
 I made a module that pieced all the components together into one
+<img width="620" height="1013" alt="Screenshot 2025-10-07 at 22 27 47" src="https://github.com/user-attachments/assets/28a78852-c4e6-434c-a472-37308a97d0f7" />
 
 
 `07/10/2025`
